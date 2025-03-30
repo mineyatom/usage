@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TQC軟體知識測驗</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007bff">
+    <link rel="icon" href="icons/icon-192.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #timer {
+            font-size: 20px;
+            color: red;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #prev {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        #submit {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #finish {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #startPage {
+            text-align: center;
+        }
+
+        #startPage button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #questionPage {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="startPage">
+        <h1>歡迎來到TQC軟體知識測驗！</h1>
+        <p>準備好開始測驗了嗎？</p>
+        <button id="startTest">開始測驗</button>
+    </div>
+
+    <div id="questionPage">
+        <h1>隨機測驗</h1>
+        <p id="timer">剩餘時間：40:00</p>
+        <table>
+            <tr>
+                <th>題號</th>
+                <td id="questionNumber"></td>
+            </tr>
+            <tr>
+                <th>題目</th>
+                <td id="question"></td>
+            </tr>
+            <tr>
+                <th>選項</th>
+                <td id="options"></td>
+            </tr>
+        </table>
+        <button id="prev">上一題</button>
+        <button id="submit">下一題</button>
+        <button id="finish">直接交卷</button>
+        <p id="score">你的得分：0 / 100</p>
+        <p id="result"></p>
+        <div id="answers"></div>
+    </div>
+
+    <script>
+        let quizData = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const totalQuestions = 50;
+        const passingScore = 35;
+        let userAnswers = [];
+        let timeLeft = 2400;
+
+        const questionEl = document.getElementById("question");
+        const optionsEl = document.getElementById("options");
+        const questionNumberEl = document.getElementById("questionNumber");
+        const scoreEl = document.getElementById("score");
+        const resultEl = document.getElementById("result");
+        const answersEl = document.getElementById("answers");
+        const timerEl = document.getElementById("timer");
+
+        // 載入題庫 JSON
+        fetch("questions.json")
+            .then(response => response.json())
+            .then(data => {
+                quizData = data.sort(() => 0.5 - Math.random()).slice(0, totalQuestions);  // 隨機打亂題目並取前50題
+            })
+            .catch(error => console.error("無法載入題庫", error));
+
+        function startTimer() {
+            const timer = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    endQuiz();
+                }
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timerEl.innerText = `剩餘時間：${minutes}:${seconds.toString().padStart(2, '0')}`;
+                timeLeft--;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizData.length) {
+                return endQuiz();
+            }
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionNumberEl.innerText = currentQuestionIndex + 1;
+            questionEl.innerText = currentQuestion.question;
+            optionsEl.innerHTML = "";
+
+            currentQuestion.options.forEach((option, index) => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = currentQuestion.answer.length > 1 ? "checkbox" : "radio";
+                input.name = "answer";
+                input.value = index + 1;
+                label.appendChild(input);
+                label.append(option);
+                optionsEl.appendChild(label);
+                optionsEl.appendChild(document.createElement("br"));
+            });
+        }
+
+        function checkAnswer() {
+            const selectedOptions = document.querySelectorAll("input[name='answer']:checked");
+            if (selectedOptions.length === 0) return;
+
+            const userAnswer = Array.from(selectedOptions).map(opt => parseInt(opt.value));
+            userAnswers[currentQuestionIndex] = userAnswer;
+
+            const correctAnswer = quizData[currentQuestionIndex].answer;
+            if (JSON.stringify(userAnswer.sort()) === JSON.stringify(correctAnswer.sort())) {
+                score += 2;
+            }
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        function endQuiz() {
+            let percentageScore = (score / (totalQuestions * 2)) * 100;
+            let passMessage = score >= passingScore ? "恭喜，你及格了！" : "很遺憾，你未及格。";
+
+            let answerReview = "<h2>錯誤答案</h2><ul>";
+            quizData.forEach((q, index) => {
+                if (!userAnswers[index] || JSON.stringify(userAnswers[index].sort()) !== JSON.stringify(q.answer.sort())) {
+                    answerReview += `<li>第 ${index + 1} 題：${q.question}<br>你的答案：${userAnswers[index] ? userAnswers[index].join(', ') : '未作答'}<br>正確答案：${q.answer.map(a => `${a} ${q.options[a - 1]}`).join(', ')}</li>`;
+                }
+            });
+            answerReview += "</ul>";
+
+            alert(`測驗結束！你的得分是 ${score} / ${(totalQuestions * 2)} (${percentageScore}%)\n${passMessage}`);
+            scoreEl.innerText = `你的得分：${score} / ${(totalQuestions * 2)} (${percentageScore}%)`;
+            resultEl.innerText = passMessage;
+            answersEl.innerHTML = answerReview;  // 顯示錯誤題目與答案
+        }
+
+        document.getElementById("submit").addEventListener("click", checkAnswer);
+        document.getElementById("prev").addEventListener("click", prevQuestion);
+        document.getElementById("finish").addEventListener("click", endQuiz);
+
+        // 開始測驗按鈕的事件
+        document.getElementById("startTest").addEventListener("click", () => {
+            document.getElementById("startPage").style.display = "none";
+            document.getElementById("questionPage").style.display = "block";
+            startTimer();
+            loadQuestion();
+        });
+    </script>
+</body>
+
+</html>
