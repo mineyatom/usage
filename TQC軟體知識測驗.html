@@ -75,8 +75,13 @@
             opacity: 0.8;
         }
 
-        #startPage {
-            text-align: center;
+        fieldset {
+            border: none;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
         }
 
         #startPage button {
@@ -87,6 +92,14 @@
         #questionPage {
             display: none;
         }
+
+        #answers div {
+            border-left: 5px solid;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f1f1f1;
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -96,7 +109,6 @@
         <p>準備好開始測驗了嗎？</p>
         <button id="startTest">開始測驗</button>
     </div>
-
     <div id="questionPage">
         <h1>隨機測驗</h1>
         <p id="timer">剩餘時間：40:00</p>
@@ -111,17 +123,18 @@
             </tr>
             <tr>
                 <th>選項</th>
-                <td id="options"></td>
+                <td>
+                    <fieldset id="options"></fieldset>
+                </td>
             </tr>
         </table>
-        <button id="prev">上一題</button>
+        <button id="prev" disabled>上一題</button>
         <button id="submit">下一題</button>
         <button id="finish">直接交卷</button>
         <p id="score">你的得分：0 / 100</p>
         <p id="result"></p>
         <div id="answers"></div>
     </div>
-
     <script>
         let quizData = [];
         let currentQuestionIndex = 0;
@@ -130,69 +143,69 @@
         const passingScore = 35;
         let userAnswers = [];
         let timeLeft = 2400;
-
-        const questionEl = document.getElementById("question");
-        const optionsEl = document.getElementById("options");
-        const questionNumberEl = document.getElementById("questionNumber");
-        const scoreEl = document.getElementById("score");
-        const resultEl = document.getElementById("result");
-        const answersEl = document.getElementById("answers");
         const timerEl = document.getElementById("timer");
+        const scoreEl = document.getElementById("score");
+        let checkedQuestions = Array(totalQuestions).fill(false);
 
-        // 載入題庫 JSON
         fetch("questions.json")
             .then(response => response.json())
-            .then(data => {
-                quizData = data.sort(() => 0.5 - Math.random()).slice(0, totalQuestions);  // 隨機打亂題目並取前50題
-            })
+            .then(data => quizData = data.sort(() => 0.5 - Math.random()).slice(0, totalQuestions))
             .catch(error => console.error("無法載入題庫", error));
 
         function startTimer() {
-            const timer = setInterval(() => {
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    endQuiz();
-                }
+            setInterval(() => {
+                if (timeLeft <= 0) return endQuiz();
                 let minutes = Math.floor(timeLeft / 60);
-                let seconds = timeLeft % 60;
-                timerEl.innerText = `剩餘時間：${minutes}:${seconds.toString().padStart(2, '0')}`;
+                let seconds = (timeLeft % 60).toString().padStart(2, '0');
+                timerEl.innerText = `剩餘時間：${minutes}:${seconds}`;
                 timeLeft--;
             }, 1000);
         }
 
         function loadQuestion() {
-            if (currentQuestionIndex >= quizData.length) {
-                return endQuiz();
-            }
-            const currentQuestion = quizData[currentQuestionIndex];
-            questionNumberEl.innerText = currentQuestionIndex + 1;
-            questionEl.innerText = currentQuestion.question;
+            if (currentQuestionIndex >= quizData.length) return endQuiz();
+            const q = quizData[currentQuestionIndex];
+            document.getElementById("questionNumber").innerText = currentQuestionIndex + 1;
+            document.getElementById("question").innerText = q.question;
+            let optionsEl = document.getElementById("options");
             optionsEl.innerHTML = "";
-
-            currentQuestion.options.forEach((option, index) => {
-                const label = document.createElement("label");
-                const input = document.createElement("input");
-                input.type = currentQuestion.answer.length > 1 ? "checkbox" : "radio";
+            q.options.forEach((option, index) => {
+                let label = document.createElement("label");
+                let input = document.createElement("input");
+                input.type = q.answer.length > 1 ? "checkbox" : "radio";
                 input.name = "answer";
                 input.value = index + 1;
+                input.addEventListener("change", updateScore);
+                if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].includes(index + 1)) {
+                    input.checked = true;
+                }
                 label.appendChild(input);
-                label.append(option);
+                label.append(` ${option}`);
                 optionsEl.appendChild(label);
-                optionsEl.appendChild(document.createElement("br"));
             });
+            document.getElementById("prev").disabled = currentQuestionIndex === 0;
+        }
+
+        function updateScore() {
+            let selectedOptions = Array.from(document.querySelectorAll("input[name='answer']:checked"))
+                .map(opt => parseInt(opt.value));
+            userAnswers[currentQuestionIndex] = selectedOptions;
+            let correctAnswer = quizData[currentQuestionIndex].answer;
+            let isCorrect = JSON.stringify(selectedOptions.sort()) === JSON.stringify(correctAnswer.sort());
+
+            if (isCorrect && !checkedQuestions[currentQuestionIndex]) {
+                score += 2;
+                checkedQuestions[currentQuestionIndex] = true;
+            }
+            if (!isCorrect && checkedQuestions[currentQuestionIndex]) {
+                score -= 2;
+                checkedQuestions[currentQuestionIndex] = false;
+            }
+
+            scoreEl.innerText = `你的得分：${score} / ${totalQuestions * 2}`;
         }
 
         function checkAnswer() {
-            const selectedOptions = document.querySelectorAll("input[name='answer']:checked");
-            if (selectedOptions.length === 0) return;
-
-            const userAnswer = Array.from(selectedOptions).map(opt => parseInt(opt.value));
-            userAnswers[currentQuestionIndex] = userAnswer;
-
-            const correctAnswer = quizData[currentQuestionIndex].answer;
-            if (JSON.stringify(userAnswer.sort()) === JSON.stringify(correctAnswer.sort())) {
-                score += 2;
-            }
             currentQuestionIndex++;
             loadQuestion();
         }
@@ -204,29 +217,35 @@
             }
         }
 
-        function endQuiz() {
-            let percentageScore = (score / (totalQuestions * 2)) * 100;
-            let passMessage = score >= passingScore ? "恭喜，你及格了！" : "很遺憾，你未及格。";
+        function showAnswers() {
+            const container = document.getElementById("answers");
+            container.innerHTML = "<h2>對答案</h2>";
+            quizData.forEach((q, i) => {
+                const userAns = userAnswers[i] || [];
+                const isCorrect = JSON.stringify(userAns.sort()) === JSON.stringify(q.answer.sort());
+                const userText = userAns.map(num => q.options[num - 1]).join("，") || "未作答";
+                const correctText = q.answer.map(num => q.options[num - 1]).join("，");
 
-            let answerReview = "<h2>錯誤答案</h2><ul>";
-            quizData.forEach((q, index) => {
-                if (!userAnswers[index] || JSON.stringify(userAnswers[index].sort()) !== JSON.stringify(q.answer.sort())) {
-                    answerReview += `<li>第 ${index + 1} 題：${q.question}<br>你的答案：${userAnswers[index] ? userAnswers[index].join(', ') : '未作答'}<br>正確答案：${q.answer.map(a => `${a} ${q.options[a - 1]}`).join(', ')}</li>`;
-                }
+                const div = document.createElement("div");
+                div.style.borderLeftColor = isCorrect ? "green" : "red";
+                div.innerHTML = `
+                    <strong>第 ${i + 1} 題：</strong> ${q.question}<br>
+                    ✅ 正確答案：<span style="color:green">${correctText}</span><br>
+                    📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userText}</span>
+                    ${isCorrect ? "✅" : "❌"}
+                `;
+                container.appendChild(div);
             });
-            answerReview += "</ul>";
+        }
 
-            alert(`測驗結束！你的得分是 ${score} / ${(totalQuestions * 2)} (${percentageScore}%)\n${passMessage}`);
-            scoreEl.innerText = `你的得分：${score} / ${(totalQuestions * 2)} (${percentageScore}%)`;
-            resultEl.innerText = passMessage;
-            answersEl.innerHTML = answerReview;  // 顯示錯誤題目與答案
+        function endQuiz() {
+            alert("測驗結束！");
+            showAnswers();
         }
 
         document.getElementById("submit").addEventListener("click", checkAnswer);
         document.getElementById("prev").addEventListener("click", prevQuestion);
         document.getElementById("finish").addEventListener("click", endQuiz);
-
-        // 開始測驗按鈕的事件
         document.getElementById("startTest").addEventListener("click", () => {
             document.getElementById("startPage").style.display = "none";
             document.getElementById("questionPage").style.display = "block";
