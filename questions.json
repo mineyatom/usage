@@ -343,7 +343,7 @@
     "answer": [2]
   },
   {
-    "question": "如附圖所示，圖中所示為一個運算子的二元樹，試問其前序（Prefix）下列哪一項正確？",
+    "question": "如附圖所示，圖中所示為一個運算子的二元樹，試問其前序（Prefix）下列哪一項正確？<br><img src='soft/tree.png' alt='運算子二元樹'>",
     "options": [
       "選項 A",
       "選項 B",
@@ -373,7 +373,7 @@
     "answer": [2]
   },
     {
-    "question": "如附圖所示，若演算法的時間複雜度（Time Complexity）由小到大排序，下列哪一項正確？",
+    "question": "如附圖所示，若演算法的時間複雜度（Time Complexity）由小到大排序，下列哪一項正確？<br><img src='soft/tree2.png' alt='演算法'>",
     "options": [
       "選項 A",
       "選項 B",
@@ -383,7 +383,7 @@
     "answer": [3]
   },
   {
-    "question": "如附圖所示，下列敘述哪一項正確？",
+    "question": "如附圖所示，下列敘述哪一項正確？<br><img src='soft/tree3.png' alt='運算式'",
     "options": [
       "選項 A",
       "選項 B",
@@ -413,7 +413,7 @@
     "answer": [1]
   },
      {
-    "question": "如附圖所示之 C 語言之遞迴函式（Recursive Function），計算 0 至 N 間所有整數之和，空格中應填入下列哪一項？",
+    "question": "如附圖所示之 C 語言之遞迴函式（Recursive Function），計算 0 至 N 間所有整數之和，空格中應填入下列哪一項？<br><img src='soft/tree4.png' alt='C語言'",
     "options": [
       "選項 A",
       "選項 B",
@@ -443,7 +443,7 @@
     "answer": [2]
   },
   {
-    "question": "如附圖所示，一陣列有 n 個元素，搜尋演算法如下，則成功找尋的平均次數下列哪一項正確？",
+    "question": "如附圖所示，一陣列有 n 個元素，搜尋演算法如下，則成功找尋的平均次數下列哪一項正確？<br><img src='soft/tree5.png' alt='演算法2'",
     "options": [
       "(n-1)/2",
       "n-2",
@@ -453,7 +453,7 @@
     "answer": [4]
   },
     {
-    "question": "請參閱附圖進行作答。",
+    "question": "請參閱附圖進行作答。<br><img src='soft/tree6.png' alt='OAO'",
     "options": [
       "選項 A",
       "選項 B",
@@ -483,7 +483,7 @@
     "answer": [1, 3, 4]
   },
   {
-    "question": "如附圖所示，關於軟體開發模式的敘述，下列哪一項錯誤？",
+    "question": "如附圖所示，關於軟體開發模式的敘述，下列哪一項錯誤？<br><img src='soft/tree7.png' alt='軟體開發'",
     "options": [
       "選項 A",
       "選項 B",
@@ -823,7 +823,7 @@
     "answer": [ 1, 2, 3,4]
   },
   {
-    "question": "如附圖所示，代表下列哪一項白箱測試法中，基本路徑測試法的符號？",
+    "question": "如附圖所示，代表下列哪一項白箱測試法中，基本路徑測試法的符號？<br><img src='soft/tree8.png' alt='白箱測試'",
     "options": [
       "Sequence",
       "If",
@@ -833,7 +833,7 @@
     "answer": [4]
   },
   {
-    "question": "如附圖所示，下列哪一項不是獨立路徑？",
+    "question": "如附圖所示，下列哪一項不是獨立路徑？<br><img src='soft/tree9.png' alt='獨立路徑'",
     "options": [
       "PATH 1-4",
       "PATH 1-3-5-1-4",
@@ -843,7 +843,7 @@
     "answer": [4]
   },
   {
-    "question": "如附圖所示，其流程圖的循環複雜度是多少？",
+    "question": "如附圖所示，其流程圖的循環複雜度是多少？<br><img src='soft/tree10.png' alt='循環複雜'",
     "options": [
       "1",
       "2",
@@ -853,7 +853,7 @@
     "answer": [3]
   },
     {
-    "question": "如附圖所示，關於基本路徑測試的步驟，下列順序哪一項正確？",
+    "question": "如附圖所示，關於基本路徑測試的步驟，下列順序哪一項正確？<br><img src='soft/tree11.png' alt='路徑測試'",
     "options": [
       "選項 A",
       "選項 B",
@@ -943,7 +943,7 @@
     "answer": [4]
   },
   {
-    "question": "請參閱附圖進行作答。",
+    "question": "請參閱附圖進行作答。<br><img src='soft/tree12.png' alt='水平型'",
     "options": [
       "外部的",
       "垂直型",
@@ -1063,7 +1063,7 @@
     "answer": [ 1, 2, 3,4]
   },
   {
-    "question": "請參閱附圖進行作答。",
+    "question": "請參閱附圖進行作答。<br><img src='soft/tree13.png' alt='水平型'",
     "options": [
       "追蹤該WP的缺陷移除效率",
       "同意小組長的報告，並敦促該WP進入設計階段",
@@ -1113,7 +1113,7 @@
     "answer": [4]
   },
     {
-    "question": "請參閱附圖進行作答。",
+    "question": "請參閱附圖進行作答。<br><img src='soft/tree14.png' alt='風險優先'",
     "options": [
       "選項 A",
       "選項 B",
@@ -1253,7 +1253,7 @@
     "answer": [ 1, 2,3]
   },
   {
-    "question": "如附圖所示，風險訪談對每個WBS因素決定其三點評估值，傳統的估計方式，專案整體的成本估計值為多少?",
+    "question": "如附圖所示，風險訪談對每個WBS因素決定其三點評估值，傳統的估計方式，專案整體的成本估計值為多少?<br><img src='soft/tree14.png' alt='風險預估'",
     "options": [
       "31",
       "41",
