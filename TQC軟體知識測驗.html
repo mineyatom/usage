@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TQC軟體知識測驗</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#007bff">
@@ -135,6 +136,34 @@
             text-align: left;
         }
 
+        /* ✅ RWD 補強 */
+        @media (max-width: 600px) {
+            #container {
+                padding: 10px;
+            }
+
+            table, th, td {
+                font-size: 14px;
+            }
+
+            label {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            #timer {
+                font-size: 18px;
+            }
+
+            #startPage h1, #questionPage h1 {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
 
@@ -178,6 +207,7 @@
         const passingScore = 35;
         let userAnswers = [];
         let timeLeft = 2400;
+        let timerInterval; // ✅ 用來控制計時器
         const timerEl = document.getElementById("timer");
         const scoreEl = document.getElementById("score");
         let checkedQuestions = Array(totalQuestions).fill(false);
@@ -188,8 +218,11 @@
             .catch(error => console.error("無法載入題庫", error));
 
         function startTimer() {
-            setInterval(() => {
-                if (timeLeft <= 0) return endQuiz();
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    endQuiz();
+                    return;
+                }
                 let minutes = Math.floor(timeLeft / 60);
                 let seconds = (timeLeft % 60).toString().padStart(2, '0');
                 timerEl.innerText = `剩餘時間：${minutes}:${seconds}`;
@@ -278,17 +311,17 @@
                 }).join("");
 
                 div.innerHTML = `
-            <strong>第 ${i + 1} 題：</strong> ${q.question}<br>
-            ${optionsHTML}
-            <div>✅ 正確答案：<span style="color:green">${correctAns.map(num => `${num}. ${q.options[num - 1]}`).join("，")}</span></div>
-            <div>📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userAns.length ? userAns.map(num => `${num}. ${q.options[num - 1]}`).join("，") : "未作答"}</span> ${isCorrect ? "✅" : "❌"}</div>
-        `;
+                <strong>第 ${i + 1} 題：</strong> ${q.question}<br>
+                ${optionsHTML}
+                <div>✅ 正確答案：<span style="color:green">${correctAns.map(num => `${num}. ${q.options[num - 1]}`).join("，")}</span></div>
+                <div>📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userAns.length ? userAns.map(num => `${num}. ${q.options[num - 1]}`).join("，") : "未作答"}</span> ${isCorrect ? "✅" : "❌"}</div>
+            `;
                 container.appendChild(div);
             });
         }
 
-
         function endQuiz() {
+            clearInterval(timerInterval); // ✅ 停止計時器
             const passed = score >= passingScore * 2;
             const resultEl = document.getElementById("result");
             resultEl.innerText = passed ? "🎉 恭喜你通過測驗！" : "😢 很可惜，未達到通過分數。";
@@ -309,6 +342,7 @@
         }
 
         function restartQuiz() {
+            clearInterval(timerInterval); // ✅ 清掉上一輪的計時器
             location.reload();
         }
 
@@ -321,7 +355,6 @@
             startTimer();
             loadQuestion();
         });
-
     </script>
 </body>
 
