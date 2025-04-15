@@ -2,12 +2,12 @@
 <html lang="zh-TW">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TQC軟體知識測驗</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#007bff">
-    <link rel="icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#007bff" />
+    <link rel="icon" href="icons/icon-192.png" />
     <style>
         @keyframes flash {
             0% {
@@ -137,16 +137,22 @@
         }
 
         img {
-            width: 100%;
-            height: auto;
             max-width: 100%;
-            max-height: 100vh;
+            height: auto;
             display: block;
-            margin: 10px auto;
+            margin: 10px 0 10px 0;
             object-fit: contain;
             border: 1px solid #ccc;
             border-radius: 8px;
             box-sizing: border-box;
+            float: left;
+            margin-right: 15px;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
         }
 
         @media (max-width: 600px) {
@@ -195,6 +201,7 @@
         <p>準備好開始測驗了嗎？</p>
         <button id="startTest">開始測驗</button>
     </div>
+
     <div id="questionPage">
         <h1>隨機測驗</h1>
         <p id="timer">剩餘時間：40:00</p>
@@ -221,6 +228,7 @@
         <p id="result"></p>
         <div id="answers"></div>
     </div>
+
     <script>
         let quizData = [];
         let currentQuestionIndex = 0;
@@ -253,7 +261,7 @@
             if (currentQuestionIndex >= quizData.length) return endQuiz();
             const q = quizData[currentQuestionIndex];
             document.getElementById("questionNumber").innerText = currentQuestionIndex + 1;
-            document.getElementById("question").innerHTML = q.question;
+            document.getElementById("question").innerHTML = `<div class="clearfix">${q.question}</div>`;
             let optionsEl = document.getElementById("options");
             optionsEl.innerHTML = "";
             q.options.forEach((option, index) => {
@@ -267,7 +275,7 @@
                     input.checked = true;
                 }
                 label.appendChild(input);
-                label.append(` ${option}`);
+                label.insertAdjacentHTML("beforeend", ` ${option}`);
                 optionsEl.appendChild(label);
             });
             document.getElementById("prev").disabled = currentQuestionIndex === 0;
@@ -329,11 +337,11 @@
                 }).join("");
 
                 div.innerHTML = `
-                    <strong>第 ${i + 1} 題：</strong> ${q.question}<br>
-                    ${optionsHTML}
-                    <div>✅ 正確答案：<span style="color:green">${correctAns.map(num => `${num}. ${q.options[num - 1]}`).join("，")}</span></div>
-                    <div>📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userAns.length ? userAns.map(num => `${num}. ${q.options[num - 1]}`).join("，") : "未作答"}</span> ${isCorrect ? "✅" : "❌"}</div>
-                `;
+          <strong>第 ${i + 1} 題：</strong> ${q.question}<br>
+          ${optionsHTML}
+          <div>✅ 正確答案：<span style="color:green">${correctAns.map(num => `${num}. ${q.options[num - 1]}`).join("，")}</span></div>
+          <div>📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userAns.length ? userAns.map(num => `${num}. ${q.options[num - 1]}`).join("，") : "未作答"}</span> ${isCorrect ? "✅" : "❌"}</div>
+        `;
                 container.appendChild(div);
             });
         }
