@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TQC 測驗系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        #startPage {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #questionPage {
+            display: none;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        #timer,
+        #score,
+        #questionNumber {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #score {
+            display: none;
+        }
+
+        #answers div {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fff;
+            border-left: 5px solid;
+        }
+
+        .instant-mode {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .exam-mode {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 2px solid #b8daff;
+        }
+
+        button {
+            margin-top: 10px;
+            margin-right: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #progressBar {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        #progressBarFill {
+            height: 100%;
+            width: 0%;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>TQC學科測驗</h1>
+
+    <div id="startPage" class="instant-mode">
+        <label><input type="radio" name="mode" id="instantMode" value="instant" /> 練習模式（即時對答案）</label>
+        <label><input type="radio" name="mode" id="examMode" value="exam" /> 考試模式（不即時對答案）</label>
+
+        <label for="quizSelect">選擇題庫:</label>
+        <select id="quizSelect">
+            <option value="quiz1">軟體開發知識</option>
+            <option value="quiz2">HTML</option>
+        </select><br />
+
+        <button id="startTest">開始測驗</button>
+    </div>
+
+    <div id="questionPage">
+        <div id="timer">剩餘時間：40:00</div>
+        <div id="score">你的得分：0 / 100</div>
+        <div id="questionNumber"></div>
+        <div id="progressBar">
+            <div id="progressBarFill"></div>
+        </div>
+        <div id="question"></div>
+        <div id="options"></div>
+        <button id="prev">上一題</button>
+        <button id="submit">下一題</button>
+        <button id="finish">交卷</button>
+    </div>
+
+    <div id="result"></div>
+    <div id="answers"></div>
+
+    <script>
+        let quizData = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const totalQuestions = 50;
+        const passingScore = 35;
+        let userAnswers = [];
+        let checkedQuestions = Array(totalQuestions).fill(false);
+        let timeLeft = 2400;
+        let timerInterval;
+        let isInstantMode = false;
+
+        const timerEl = document.getElementById("timer");
+        const scoreEl = document.getElementById("score");
+        const progressBarFill = document.getElementById("progressBarFill");
+
+        const quizFiles = {
+            quiz1: "questions.json",
+            quiz2: "questions2.json"
+        };
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) return endQuiz();
+                let min = Math.floor(timeLeft / 60);
+                let sec = (timeLeft % 60).toString().padStart(2, '0');
+                timerEl.innerText = `剩餘時間：${min}:${sec}`;
+                timeLeft--;
+            }, 1000);
+        }
+
+        function loadQuiz() {
+            const selectedQuiz = document.getElementById("quizSelect").value;
+            fetch(quizFiles[selectedQuiz])
+                .then(res => res.json())
+                .then(data => {
+                    quizData = data.sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
+                    loadQuestion();
+                })
+                .catch(err => {
+                    alert("題庫載入錯誤，請確認 JSON 檔案存在並正確。");
+                    console.error(err);
+                });
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizData.length) return endQuiz();
+            const q = quizData[currentQuestionIndex];
+            document.getElementById("questionNumber").innerText = `第 ${currentQuestionIndex + 1} / ${totalQuestions} 題`;
+            document.getElementById("question").innerHTML = q.question;
+            const optionsEl = document.getElementById("options");
+            optionsEl.innerHTML = "";
+
+            q.options.forEach((opt, i) => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = q.answer.length > 1 ? "checkbox" : "radio";
+                input.name = "answer";
+                input.value = i + 1;
+                if (userAnswers[currentQuestionIndex]?.includes(i + 1)) input.checked = true;
+                input.addEventListener("change", updateScore);
+                label.appendChild(input);
+                label.append(` ${opt}`);
+                optionsEl.appendChild(label);
+            });
+
+            document.getElementById("prev").disabled = currentQuestionIndex === 0;
+            updateProgressBar();
+        }
+
+        function updateScore() {
+            const selected = Array.from(document.querySelectorAll("input[name='answer']:checked"))
+                .map(opt => parseInt(opt.value));
+            userAnswers[currentQuestionIndex] = selected;
+
+            const correct = quizData[currentQuestionIndex].answer;
+            const isCorrect = JSON.stringify(selected.sort()) === JSON.stringify(correct.sort());
+
+            if (isInstantMode) {
+                if (isCorrect && !checkedQuestions[currentQuestionIndex]) {
+                    score += 2;
+                    checkedQuestions[currentQuestionIndex] = true;
+                }
+                if (!isCorrect && checkedQuestions[currentQuestionIndex]) {
+                    score -= 2;
+                    checkedQuestions[currentQuestionIndex] = false;
+                }
+                scoreEl.innerText = `你的得分：${score} / ${totalQuestions * 2}`;
+            }
+        }
+
+        function updateProgressBar() {
+            const percent = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+            progressBarFill.style.width = `${percent}%`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            const passed = score >= passingScore * 2;
+            const resultEl = document.getElementById("result");
+            resultEl.innerText = passed ? "🎉 恭喜你通過測驗！" : "😢 很可惜，未達到通過分數。";
+            resultEl.style.color = passed ? "green" : "red";
+            resultEl.style.fontSize = "24px";
+            resultEl.style.animation = "flash 1s ease-in-out 3";
+
+            showAnswers();
+
+            const restartBtn = document.createElement("button");
+            restartBtn.textContent = "重新測驗";
+            restartBtn.style.backgroundColor = "#007bff";
+            restartBtn.style.color = "white";
+            restartBtn.onclick = () => location.reload();
+            resultEl.appendChild(document.createElement("br"));
+            resultEl.appendChild(restartBtn);
+        }
+
+        function showAnswers() {
+            const container = document.getElementById("answers");
+            container.innerHTML = "<h2>對答案</h2>";
+            quizData.forEach((q, i) => {
+                const userAns = userAnswers[i] || [];
+                const correctAns = q.answer;
+                const isCorrect = JSON.stringify(userAns.sort()) === JSON.stringify(correctAns.sort());
+
+                const div = document.createElement("div");
+                div.style.borderLeftColor = isCorrect ? "green" : "red";
+
+                const optionsHTML = q.options.map((opt, idx) => {
+                    const num = idx + 1;
+                    const userSel = userAns.includes(num);
+                    const isCorrectOpt = correctAns.includes(num);
+                    let color = "#333";
+                    if (isCorrectOpt && userSel) color = "green";
+                    else if (isCorrectOpt) color = "blue";
+                    else if (userSel) color = "red";
+
+                    return `<div style="color:${color}">${num}. ${opt}</div>`;
+                }).join("");
+
+                div.innerHTML = `
+          <strong>第 ${i + 1} 題：</strong> ${q.question}<br>
+          ${optionsHTML}
+          <div>✅ 正確答案：<span style="color:green">${correctAns.map(n => `${n}. ${q.options[n - 1]}`).join("，")}</span></div>
+          <div>📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userAns.length ? userAns.map(n => `${n}. ${q.options[n - 1]}`).join("，") : "未作答"}</span> ${isCorrect ? "✅" : "❌"}</div>
+        `;
+                container.appendChild(div);
+            });
+        }
+
+        document.getElementById("submit").addEventListener("click", () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= totalQuestions) {
+                endQuiz();
+            } else {
+                loadQuestion();
+            }
+        });
+
+        document.getElementById("prev").addEventListener("click", () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        });
+
+        document.getElementById("finish").addEventListener("click", endQuiz);
+
+        document.getElementById("startTest").addEventListener("click", () => {
+            isInstantMode = document.getElementById("instantMode").checked;
+            document.getElementById("startPage").style.display = "none";
+            document.getElementById("questionPage").style.display = "block";
+            document.getElementById("startPage").className = isInstantMode ? "instant-mode" : "exam-mode";
+            scoreEl.style.display = isInstantMode ? "block" : "none";
+            loadQuiz();
+            startTimer();
+        });
+
+    </script>
+</body>
+
+</html>
