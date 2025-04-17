@@ -6,72 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TQC 測驗系統</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background: #f8f9fa;
         }
 
         h1 {
-            color: #007bff;
             text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
         }
 
-        #startPage {
-            text-align: center;
+        .card {
+            background: #fff;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .mode-select label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .question-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 10px 0;
         }
 
         #questionPage {
             display: none;
         }
 
-        label {
+        #options label {
             display: block;
-            margin: 10px 0;
-            font-size: 18px;
-        }
-
-        #timer,
-        #score,
-        #questionNumber {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        #score {
-            display: none;
-        }
-
-        #answers div {
-            margin-bottom: 10px;
+            background: #f8f9fa;
             padding: 10px;
-            background: #fff;
-            border-left: 5px solid;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
         }
 
-        .instant-mode {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 2px solid #f5c6cb;
-        }
-
-        .exam-mode {
-            background-color: #cce5ff;
-            color: #004085;
-            border: 2px solid #b8daff;
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         button {
-            margin-top: 10px;
-            margin-right: 5px;
-            padding: 10px 20px;
+            flex: 1 1 30%;
+            padding: 10px;
             font-size: 16px;
-            border-radius: 5px;
             border: none;
+            border-radius: 10px;
+            background-color: #007bff;
+            color: white;
             cursor: pointer;
         }
 
@@ -80,11 +86,12 @@
         }
 
         #progressBar {
-            height: 20px;
+            width: 100%;
+            height: 15px;
             background-color: #e0e0e0;
             border-radius: 10px;
             overflow: hidden;
-            margin: 10px 0;
+            margin: 20px 0;
         }
 
         #progressBarFill {
@@ -94,17 +101,17 @@
             transition: width 0.3s ease;
         }
 
-        @keyframes flash {
-            0% {
-                opacity: 1;
+        @media screen and (max-width: 600px) {
+            .button-group {
+                flex-direction: column;
             }
 
-            50% {
-                opacity: 0;
+            button {
+                flex: 1 1 100%;
             }
 
-            100% {
-                opacity: 1;
+            .question-image {
+                max-height: 200px;
             }
         }
 
@@ -112,37 +119,41 @@
 </head>
 
 <body>
-    <h1>TQC學科測驗</h1>
+    <div class="container">
+        <h1>TQC 學科測驗</h1>
 
-    <div id="startPage" class="instant-mode">
-        <label><input type="radio" name="mode" id="instantMode" value="instant" /> 練習模式（即時對答案）</label>
-        <label><input type="radio" name="mode" id="examMode" value="exam" /> 考試模式（不即時對答案）</label>
-
-        <label for="quizSelect">選擇題庫:</label>
-        <select id="quizSelect">
-            <option value="quiz1">軟體開發知識</option>
-            <option value="quiz2">HTML</option>
-        </select><br />
-
-        <button id="startTest">開始測驗</button>
-    </div>
-
-    <div id="questionPage">
-        <div id="timer">剩餘時間：40:00</div>
-        <div id="score">你的得分：0 / 100</div>
-        <div id="questionNumber"></div>
-        <div id="progressBar">
-            <div id="progressBarFill"></div>
+        <div id="startPage" class="card">
+            <div class="mode-select">
+                <label><input type="radio" name="mode" id="instantMode" value="instant" /> 練習模式（即時對答案）</label>
+                <label><input type="radio" name="mode" id="examMode" value="exam" /> 考試模式（不即時對答案）</label>
+                <label for="quizSelect">選擇題庫:</label>
+                <select id="quizSelect">
+                    <option value="quiz1">軟體開發知識</option>
+                    <option value="quiz2">HTML</option>
+                </select>
+            </div>
+            <button id="startTest">開始測驗</button>
         </div>
-        <div id="question"></div>
-        <div id="options"></div>
-        <button id="prev">上一題</button>
-        <button id="submit">下一題</button>
-        <button id="finish">交卷</button>
-    </div>
 
-    <div id="result"></div>
-    <div id="answers"></div>
+        <div id="questionPage" class="card">
+            <div id="timer">剩餘時間：40:00</div>
+            <div id="score" style="display:none;">你的得分：0 / 100</div>
+            <div id="questionNumber"></div>
+            <div id="progressBar">
+                <div id="progressBarFill"></div>
+            </div>
+            <div id="question"></div>
+            <div id="options"></div>
+            <div class="button-group">
+                <button id="prev">上一題</button>
+                <button id="submit">下一題</button>
+                <button id="finish">交卷</button>
+            </div>
+        </div>
+
+        <div id="result" class="card"></div>
+        <div id="answers" class="card"></div>
+    </div>
 
     <script>
         let quizData = [];
@@ -193,9 +204,25 @@
             if (currentQuestionIndex >= quizData.length) return endQuiz();
             const q = quizData[currentQuestionIndex];
             document.getElementById("questionNumber").innerText = `第 ${currentQuestionIndex + 1} / ${totalQuestions} 題`;
-            document.getElementById("question").innerHTML = q.question;
+
+            const questionEl = document.getElementById("question");
             const optionsEl = document.getElementById("options");
+            questionEl.innerHTML = "";
             optionsEl.innerHTML = "";
+
+            const images = q.images || [];
+            images.forEach(src => {
+                const img = document.createElement("img");
+                img.src = src;
+                img.alt = "question image";
+                img.style.maxWidth = "100%";
+                img.style.margin = "10px 0";
+                questionEl.appendChild(img);
+            });
+
+            const questionText = document.createElement("div");
+            questionText.innerHTML = q.question;
+            questionEl.appendChild(questionText);
 
             q.options.forEach((opt, i) => {
                 const label = document.createElement("label");
@@ -232,6 +259,7 @@
                     checkedQuestions[currentQuestionIndex] = false;
                 }
                 scoreEl.innerText = `你的得分：${score} / ${totalQuestions * 2}`;
+                scoreEl.style.display = "block";
             }
         }
 
@@ -242,6 +270,19 @@
 
         function endQuiz() {
             clearInterval(timerInterval);
+
+            if (!isInstantMode) {
+                score = 0;
+                quizData.forEach((q, i) => {
+                    const userAns = userAnswers[i] || [];
+                    const correct = q.answer;
+                    const isCorrect = JSON.stringify(userAns.sort()) === JSON.stringify(correct.sort());
+                    if (isCorrect) score += 2;
+                });
+                scoreEl.innerText = `你的得分：${score} / ${totalQuestions * 2}`;
+                scoreEl.style.display = "block";
+            }
+
             const passed = score >= passingScore * 2;
             const resultEl = document.getElementById("result");
             resultEl.innerText = passed ? "🎉 恭喜你通過測驗！" : "😢 很可惜，未達到通過分數。";
@@ -269,7 +310,22 @@
                 const isCorrect = JSON.stringify(userAns.sort()) === JSON.stringify(correctAns.sort());
 
                 const div = document.createElement("div");
-                div.style.borderLeftColor = isCorrect ? "green" : "red";
+                div.style.borderLeft = `5px solid ${isCorrect ? "green" : "red"}`;
+                div.style.backgroundColor = "#fff";
+                div.style.margin = "10px 0";
+                div.style.padding = "10px";
+
+                const questionHTML = document.createElement("div");
+                questionHTML.innerHTML = `<strong>第 ${i + 1} 題：</strong> ${q.question}`;
+                div.appendChild(questionHTML);
+
+                (q.images || []).forEach(src => {
+                    const img = document.createElement("img");
+                    img.src = src;
+                    img.style.maxWidth = "100%";
+                    img.style.margin = "10px 0";
+                    div.appendChild(img);
+                });
 
                 const optionsHTML = q.options.map((opt, idx) => {
                     const num = idx + 1;
@@ -283,12 +339,12 @@
                     return `<div style="color:${color}">${num}. ${opt}</div>`;
                 }).join("");
 
-                div.innerHTML = `
-          <strong>第 ${i + 1} 題：</strong> ${q.question}<br>
-          ${optionsHTML}
-          <div>✅ 正確答案：<span style="color:green">${correctAns.map(n => `${n}. ${q.options[n - 1]}`).join("，")}</span></div>
-          <div>📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userAns.length ? userAns.map(n => `${n}. ${q.options[n - 1]}`).join("，") : "未作答"}</span> ${isCorrect ? "✅" : "❌"}</div>
+                const answerHTML = `
+            <div>${optionsHTML}</div>
+            <div>✅ 正確答案：<span style="color:green">${correctAns.map(n => `${n}. ${q.options[n - 1]}`).join("，")}</span></div>
+            <div>📝 你的答案：<span style="color:${isCorrect ? 'green' : 'red'}">${userAns.length ? userAns.map(n => `${n}. ${q.options[n - 1]}`).join("，") : "未作答"}</span> ${isCorrect ? "✅" : "❌"}</div>
         `;
+                div.innerHTML += answerHTML;
                 container.appendChild(div);
             });
         }
@@ -315,8 +371,6 @@
             isInstantMode = document.getElementById("instantMode").checked;
             document.getElementById("startPage").style.display = "none";
             document.getElementById("questionPage").style.display = "block";
-            document.getElementById("startPage").className = isInstantMode ? "instant-mode" : "exam-mode";
-            scoreEl.style.display = isInstantMode ? "block" : "none";
             loadQuiz();
             startTimer();
         });
