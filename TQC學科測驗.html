@@ -136,8 +136,9 @@
                 <label><input type="radio" name="mode" id="examMode" value="exam" /> 考試模式（不即時對答案）</label>
                 <label for="quizSelect">選擇題庫:</label>
                 <select id="quizSelect">
-                    <option value="quiz1">軟體開發知識</option>
-                    <option value="quiz2">HTML</option>
+                    <option value="quiz1">軟體開發知識2022版</option>
+                    <option value="quiz2">軟體開發知識2025版</option>
+                    <option value="quiz3">HTML</option>
                 </select>
             </div>
             <button id="startTest">開始測驗</button>
@@ -181,7 +182,8 @@
 
         const quizFiles = {
             quiz1: "questions.json",
-            quiz2: "questions2.json"
+            quiz2: "questions2.json",
+            quiz3: "questions3.json"
         };
 
         function startTimer() {
