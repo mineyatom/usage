@@ -1,0 +1,1663 @@
+[
+  {
+    "question": "HTML5 提供下列哪些即時通訊支援？",
+    "options": [
+      "即時的 WebSocket 連線",
+      "運用 JavaScript 來執行多執行緒（Multi-Thread）運算",
+      "通知服務的提示訊息（Notifications），以便於有新訊息在作業系統桌面即顯示訊息",
+      "提供即時通訊（Instant Message）功能"
+    ],
+    "answer": [
+      1,
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，關於其執行結果，下列哪一項正確？<br><img src='html/html1.png' alt=''>",
+    "options": [
+      "1234",
+      "334",
+      "10",
+      "234"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "關於 JavaScript 在網頁設計所能發揮的功能，不包含下列哪一項？",
+    "options": [
+      "用於相關元素事件（Event）驅動",
+      "可以用來驗證且更正資料",
+      "偵測拜訪者（Visitor）之瀏覽器",
+      "建立會期（Session）與 Cookie 資訊"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "在撰寫 JavaScript 時，在下列哪一種情況下使用 For Loop 最適當？",
+    "options": [
+      "只有知道停止條件 x>y",
+      "已知起始值 i=0，但迴圈結束是由條件 x>y 來判斷的",
+      "已知終值 n 與每次迴圈固定改變的值 i=i+2",
+      "至少要執行一次迴圈"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "在事件屬性之鍵盤操作程式中，關於執行的事件順序，下列敘述哪一項正確？",
+    "options": [
+      "onkeydown→onkeyup→onkeypress",
+      "onkeydown→onkeypress→onkeyup",
+      "onkeypress→onkeydown→onkeyup",
+      "onclick→onkeydown→onkeyup"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "關於 HTML5 之改善說明，下列敘述哪一項錯誤？",
+    "options": [
+      "將多媒體之視訊（Video）和音訊（Audio）分開來定義",
+      "新加入了日期、URL、E-Mail 住址之表單輸入",
+      "定義了 canvas 元素以使用 HTML5 相關元素在網頁上畫圖",
+      "保留<b>和<i>標籤，但是代表的意思已有所不同，其他的<u>、<font>、<center>標籤則已被CSS 所取代了"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，HTML5 原始碼執行後的結果應為下列哪一項？<br><img src='html/html2.png' alt=''>",
+    "options": [
+      "因為網頁中漏了<head>，<body>等標籤，所以網頁將顯示出錯誤",
+      "因為瀏覽器無法解讀此網頁，所以無法執行",
+      "仍可以正常執行，且瀏覽器將補上相關標籤再顯示結果",
+      "不同瀏覽器會有不同的解讀，有些可執行，有些則完全看不到網頁"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於<iframe>與<embed>兩個標籤之比較，下列敘述哪一項錯誤？",
+    "options": [
+      "<iframe>標籤可以切割畫面以加入不同的網頁，<embed>標籤則用來表示單一多媒體顯示",
+      "<iframe>標籤可以使用 seamless 屬性以不顯示捲軸，使網頁看起來像一般網頁，但是<embed>標籤則可用捲軸來檢視大張圖片",
+      "這兩個標籤都允許存取來自其他網域的資料來源",
+      "<iframe>標籤所加入的內容可以是各式各樣的網頁，但<embed>標籤則以多媒體圖片、視訊 (Video）、音訊（Audio）等特定內容為主"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "HTML5 新增了多媒體標籤，關於這項技術的支援程度，下列敘述哪一項錯誤？",
+    "options": [
+      "運用<embed>標籤，瀏覽器可以自行辨識所要瀏覽媒體的格式，進而使用相對應的解碼程式來解析圖像（Image）、視訊（Video）、以及音訊（Audio）",
+      "每一種 Codec 都已包含於 HTML5 中，以簡化不同瀏覽器所使用",
+      "定義的多媒體格式，主要是依循 MIME 型態（可由檔案延伸來判斷）",
+      "媒體來源主要定義在 src 屬性，它可以是任何 URL 以連結媒體來源"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種功能不需要 JavaScript 來設計即可運作？",
+    "options": [
+      "Web Workers",
+      "Geolocation",
+      "Local Data Storage",
+      "GIF Animation"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "關於 JavaScript，下列敘述哪些錯誤？",
+    "options": [
+      "JavaScript 採用物件導向程式設計",
+      "JavaScript 為直譯式程式語言",
+      "JavaScript 為伺服器端（Server-Side）執行之程式",
+      "JavaScript 之程式可以放置於<code></code>標籤之中來執行產生互動效果"
+    ],
+    "answer": [
+      3,
+      4
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，關於 JavaScript 中使用物件屬性的存取方式，下列哪些指令的用法正確？<br><img src='html/html3.png' alt=''>",
+    "options": [
+      "myRec.name=\"Tommy\";",
+      "myRec[\"age\"]=26;",
+      "myRec[age]=27;",
+      "myRec[1]=\"Tommy\";"
+    ],
+    "answer": [
+      1,
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，下列哪一項為其執行結果？<br><img src='html/html4.png' alt=''>",
+    "options": [
+      "fname:\"Eddy\",lname:\"Lin\",age:20",
+      "fname lname age",
+      "Eddy Lin 20",
+      "Array{1,2,3}"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，關於該程式，下列哪一項執行結果錯誤？<br><img src='html/html5.png' alt=''>",
+    "options": [
+      "test1 為 false",
+      "test2 為 true",
+      "test3 為 false",
+      "test4 為 false"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "關於 JavaScript 的陣列存取 A=[25,\"Tommy\",true]，下列敘述哪一項錯誤？",
+    "options": [
+      "宣告且給定初始值：var A=[25,\"Tommy\",true];",
+      "可以混合使用 A[0]與 A[\"name\"]來存取同一欄位的資料",
+      "當 A[0]=25 時，再使用 A[\"age\"]=18 可以新增年齡資料",
+      "尚未指定 A[3]的值時，跳過 A[3]以使用 A[4]=\"test\"來存取資料"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "欲將 JavaScript 的陣列進行排序，可以選用下列哪一種陣列內建方法？",
+    "options": [
+      "shift()",
+      "push(<item>)",
+      "reverse()",
+      "sort()"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "HTML5 使用了一種方法，讓 Web 人員可以通過 viewport 控制視窗可見區域，請問如附圖所示程式碼，下列敘述哪一項錯誤？<br><img src='html/html6.png' alt=''>",
+    "options": [
+      "程式碼給定初始值 1 代表手機螢幕畫面初始縮放比例 100%",
+      "maximum-scale 如果小於初始設定值，則以 maximum 倍數為初始值",
+      "viewport 是專為手機瀏覽器設計的 meta 標籤",
+      "user-scalable 設定 no 是錯誤的，應改為 0 才能執行"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "網頁內容除了文字以外最重要的就是圖片，同時也能輔助文字說明，下列敘述哪些正確？",
+    "options": [
+      "網頁圖片可包含的副檔名為.gif、.jpg(JPEG)、.png",
+      "目前只有.png 與.gif 檔能支援背景透明效果",
+      "設定圖片的連結網址可使用 href 屬性",
+      "如果要設定圖片在網頁上開啟的樣式，需要由 alt 來設定"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "question": "關於特定編排的標籤元素使用，下列敘述哪一項錯誤？",
+    "options": [
+      "要顯示 JavaScript 程式碼於網頁上時可以使用<code>標籤",
+      "要標示特定某一段文字以網底顏色來標註時可以使用<mark>標籤",
+      "要顯示現在時間，可以使用<time>標籤",
+      "要顯示修正某一段文字時，可以同時使用<del>和<ins>標籤"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於 Document Object Model（DOM），下列敘述哪一項錯誤？",
+    "options": [
+      "DOM 是用來連結 PHP 和 HTML 文件的內容",
+      "可以透過 DOM 來新增、移除、以及操作元素",
+      "可以透過 DOM 之事件來與使用者互動",
+      "可以完全地控制 CSS 樣式設計"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "關於 HTML5 之全域屬性，下列敘述哪一項錯誤？",
+    "options": [
+      "Draggable 屬性是設定元素內容是否可用滑鼠拖曳複製",
+      "元素中可包含全域屬性 Accesskey 來提供鍵盤的捷徑",
+      "全域屬性是指所有元素中加入這類的元素可以在網頁任何地方執行，例如：Spellcheck 設定是否檢查元素的英文拼字",
+      "全域屬性 dir 是指電腦中的檔案目錄"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "當顯示的寬度不夠時，可使用下列哪一項元素，讓一個較長的英文字自動斷行？",
+    "options": [
+      "p",
+      "nobr",
+      "wbr",
+      "br"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於 HTML5 Doctype 的表示法，下列敘述哪一項正確？",
+    "options": [
+      "<!DOCTYPE html>",
+      "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">",
+      "<!DOCTYPE html PUBLIC\"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">",
+      "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，於 HTML 標籤中，方框處的 div 元素及 p 元素，應該各換成下列哪一種元素較為適合？<br><img src='html/html7.png' alt=''>",
+    "options": [
+      "<div>改成<section>、<p>改成<cite>",
+      "<div>改成<article>、<p>改成<dfn>",
+      "<div>改成<aside>、<p>改成<strong>",
+      "<div>改成<figure>、<p>改成<figcaption>"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一種元素，適合用來表示在文章中，另外插入的文本？",
+    "options": [
+      "insert",
+      "ins",
+      "append",
+      "del"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種屬性，適合用來表示縮寫的全名？",
+    "options": [
+      "ref",
+      "title",
+      "item",
+      "dir"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示，若要將文字表示成如圖 lle 及 Me 的上標字效果，應使用下列哪一種元素？<br><img src='html/html8.png' alt=''>",
+    "options": [
+      "sub",
+      "sup",
+      "kbd",
+      "code"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種元素，適合用來表示使用者需透過鍵盤輸入的內容？",
+    "options": [
+      "kbd",
+      "samp",
+      "var",
+      "mark"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "下列哪一種元素，適合用來表示日期時間？",
+    "options": [
+      "time",
+      "date",
+      "datetime",
+      "day"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "下列哪一種為 W3C 建議可使用的 HTML5 元素？",
+    "options": [
+      "frameset",
+      "noframe",
+      "frame",
+      "iframe"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "關於 article 元素，下列敘述哪一項錯誤？",
+    "options": [
+      "article 元素通常擁有自己的標題",
+      "article 元素中，不能再包含 section 元素",
+      "article 元素，表示網頁中一段完整的文件",
+      "article 元素，表示網頁中可單獨使用的文件"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "關於 section 元素，下列敘述哪一項錯誤？  ",
+    "options": [
+      "section 元素不是一般的容器元素",
+      "section 元素包含內容及標題",
+      "想要將一段文章，分成好幾段可以使用 section 元素",
+      "若只是為了定義樣式，或只是為了用 JavaScript 製作一些動態效果，section 元素比 div 元素還適合使用"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "使用超連結時，可使用下列哪一種屬性來定義超連結對象是要針對哪一類型的設備使用的，例如用來列印或是給手持裝置使用等？",
+    "options": [
+      "target",
+      "type",
+      "media",
+      "rel"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於 header 元素，下列敘述哪一項錯誤？",
+    "options": [
+      "header 元素內，可以加入資料表格（Table）",
+      "header 元素內，不一定要加入 heading 元素",
+      "header 元素內，可以加入搜尋表單",
+      "header 元素內，不可以加入 nav 元素"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一種元素，適合用來表示網頁或文章作者的聯絡資訊？",
+    "options": [
+      "section",
+      "address",
+      "aside",
+      "footer"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種元素，最適合用來表示與網頁聯絡資訊無關的住址資訊？",
+    "options": [
+      "address",
+      "section",
+      "p",
+      "footer"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪一項並非 W3C 的 DOM 標準？",
+    "options": [
+      "HTML DOM",
+      "XHTML DOM",
+      "XML DOM",
+      "Core DOM"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列 document 物件的哪個方法可以將參數所指定的字串輸出至瀏覽器？",
+    "options": [
+      "close()",
+      "open()",
+      "write()",
+      "writen()"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列 document 物件的哪個方法不能取得 name 元素？",
+    "options": [
+      "getElementById()",
+      "getElementByName()",
+      "getElementByClass()",
+      "getElementByTagName()"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "下列哪一種元素可以用來描述一篇部落格的文章或者是一篇新聞？",
+    "options": [
+      "figure",
+      "aside",
+      "article",
+      "section"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪一種元素，不能使用 target 屬性？",
+    "options": [
+      "area",
+      "a",
+      "base",
+      "link"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一種語法錯誤？",
+    "options": [
+      "<datalist title=\"HTML5\">HTML5</datalist>",
+      "<option value=\"HTML5\">HTML5</option>",
+      "<label=\"HTML5\">HTML5</label>",
+      "<optgroup label=\"HTML5\">HTML5</optgroup>"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪一種屬性不是<input type=\"range\">的可用屬性？",
+    "options": [
+      "readonly",
+      "maxlength",
+      "autofocus",
+      "autocomplete"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示三種程式碼的寫法，在瀏覽器上呈現結果，下列敘述哪一項正確？<br><img src='html/html9.png' alt=''>",
+    "options": [
+      "程式碼 A、程式碼 B、程式碼 C，三者結果一致",
+      "程式碼 A、程式碼 B、程式碼 C，三者結果不一致",
+      "程式碼 A、程式碼 B 結果相同，與程式碼 C 不一致",
+      "程式碼 A、程式碼 C 結果相同，與程式碼 B 不一致"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "關於 meter 元素，下列敘述哪些正確？",
+    "options": [
+      "meter 是 HTML5 新增的元素，是用來建立一個度量條",
+      "meter 元素產生的內容為唯讀，使用者無法由瀏覽器對此欄位進行任何輸入或者操作",
+      "meter 元素沒有設定 max 及 min 屬性時，預設值皆為 0",
+      "對於無法支援 meter 的瀏覽器可以在標籤內容加入替代資訊，這些替代資訊只有在 meter 無法使用時才會出現"
+    ],
+    "answer": [
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "question": "關於 legend 元素，下列敘述哪一項錯誤？",
+    "options": [
+      "legend 為 fieldset 元素的子元素",
+      "legend 是用來為表單元素群組設立一個標籤（標題）",
+      "legend 可以為表單元素群組設立主標籤（標題）與副標籤（標題）",
+      "legend 可以在<fieldset></fieldset>標籤之間的任何位置"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，在 Chrome 瀏覽器中，meter 元素的屬性，value 值低於 low 呈現紅色，value 值位於 low 與 high 之間呈現黃色，value 值高於 high 呈現綠色，該段程式碼會使 meter 呈現下列哪一種結果？<br><img src='html/html10.png' alt=''>",
+    "options": [
+      "紅色",
+      "黃色",
+      "綠色",
+      "無法顯示"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於候選清單（Datalist），下列敘述哪些正確？",
+    "options": [
+      "Chrome 瀏覽器在密碼欄位設定 Datalist 時，不會出現候選清單效果",
+      "Chrome 瀏覽器在 email 欄位設定 Datalist 時，自動資料驗證不會作用",
+      "Chrome 瀏覽器在 email 欄位設 Datalist，不會出現候選清單效果",
+      "Datalist 標籤與 list 標籤表現方式相同，都可在 Chrome 瀏覽器上替換使用"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "question": "下列敘述哪些正確？",
+    "options": [
+      "可以單用下拉選單的元素做出群組化（Select Optgrout）選單的效果",
+      "縱使可以做到下拉選單，從畫面上還可以分辨出是用下拉選單還是群組化（Select Optgrout）選單元素做成的",
+      "如果再使用 CSS 可以做到從畫面上無法分辨出是用下拉選單還是群組化（Select Optgrout）選單元素做成的",
+      "<Optgroup>可以寫成巢狀結構，可寫出多層選單"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示，在 Chrome 瀏覽器中，密鑰欄位的程式碼應為下列哪一段？<br><img src='html/html11.png' alt=''>",
+    "options": [
+      "<input type=\"key\" name=\"mykey\">",
+      "<input type=\"keygen\" name=\"mykey\">",
+      "<key gentype=\"rsa\" name=\"mykey\"/>",
+      "<keygen keytype=\"rsa\" name=\"mykey\"/>"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，為了增加可讀性，可透過指令來複寫系統內建的訊息，該程式碼就是用來針對表單內身分證號欄位 ID_no 格式不符時，告知更明確的錯誤資訊，請問底線的指令應為下列哪一項？<br><img src='html/html12.png' alt=''>",
+    "options": [
+      "setValidity",
+      "setValidityMessage",
+      "setCustomValidity",
+      "setMessage"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，底線的屬性應為下列哪一項？<br><img src='html/html13.png' alt=''>",
+    "options": [
+      "formaction",
+      "formmethod",
+      "formenctype",
+      "formtarget"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "上網時難免會有一些安全疑慮，如果要確保安全性會設定 sandbox 屬性，請問附圖所示程式碼空白處，可為下列哪些選項？<br><img src='html/html14.png' alt=''>",
+    "options": [
+      "allow",
+      "allow-script",
+      "allow-forms",
+      "空值"
+    ],
+    "answer": [
+      3,
+      4
+    ]
+  },
+  {
+    "question": "required 屬性可用在下列哪些地方？",
+    "options": [
+      "input 型態為 text",
+      "textarea 元素",
+      "input 元素的 hidden 屬性",
+      "input 元素的 image 屬性"
+    ],
+    "answer": [
+      1,
+      2
+    ]
+  },
+  {
+    "question": "表單為設定 method 屬性時，其預設是用什麼方式送出？",
+    "options": [
+      "Get",
+      "Send",
+      "Put",
+      "Post"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "關於 step 間隔值屬性，下列敘述哪一項錯誤？",
+    "options": [
+      "可為負值數",
+      "不可為小數點數值",
+      "可設定規則性成長或減少",
+      "可為 number、range 附加屬性"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "關於表單欄位驗證的說明，下列敘述哪些正確？",
+    "options": [
+      "可使用 checkValidity()方法進行驗證",
+      "如果傳回值是 false，那表示驗證無誤，如果是 true，那表示驗證有問題",
+      "驗證有問題時，會觸發\"invalid\"事件",
+      "CustomValidity()可以自訂驗證錯誤"
+    ],
+    "answer": [
+      1,
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，若要產生如圖的效果，讓游標點擊欄位時，邊框變灰，程式碼底線 A 處的內容應為下列哪一項？<br><img src='html/html15.png' alt=''>",
+    "options": [
+      "autofocus",
+      "focus",
+      "cursor",
+      "input"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，產生的頁面如下圖，下列敘述哪些正確？<br><img src='html/html16.png' alt=''>",
+    "options": [
+      "網頁初始出現後直接點選 Submit_01 按鈕，會將 First name 值送至 demo_form1.asp 網頁",
+      "網頁初始出現後直接點選 Submit_01 按鈕，不會將 First name 值送至 demo_form1.asp 網頁",
+      "網頁初始出現後直接點選 Submit_02 按鈕，會將 Last name 值送至 demo_form2.asp 網頁",
+      "網頁初始出現後直接點選 Submit_02 按鈕，不會將 Last name 值送至 demo_form2.asp 網頁"
+    ],
+    "answer": [
+      2,
+      3
+    ]
+  },
+  {
+    "question": "下列語法哪些正確？",
+    "options": [
+      "<button type=\"submit\" formaction=\"http://exam:8080/form\" formmethod=\"post\">",
+      "<form method=\"get\" action=\"http://exam:8080/autoform\">",
+      "<button type=\"submit\" action=\"http://exam:8080/form\" formmethod=\"post\">",
+      "<button form=\"eform\" type=\"submit\">Submit form</button>"
+    ],
+    "answer": [
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "question": "下列哪些語法可以傳送 email？",
+    "options": [
+      "<Form Method=\"POST\" Action=\"mailto:html5@TQC.com\" Enctype=“text/plain”>",
+      "<a href=\"mailto:html5@TQC.com?subject=HTML5 詢問&body=我有問題\">詢問</a>",
+      "function sendMail(obj){window.location.href=\"mailto:TQC< html5@TQC.com>?subject=\"+obj.e_name.value+\"<\"+obj.e_mail.value+\">詢問&body=\"+obj.e_body.value;}",
+      "<input type=\"email\">"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "question": "表單（Form）需要動態調整 enctype 屬性來達到上傳檔案的需求時，需要將 form 物件去設定其enctype 屬性，下列哪一種語法可在 IE 上執行？",
+    "options": [
+      "document.getElementById(\"form1\").enctype=\"multipart/form-data\";",
+      "document.getElementById(\"form1\").enctype=\"application/x-www-form-urlencoded\";",
+      "document.getElementById(\"form1\").encoding=\"multipart/form-data\";",
+      "document.getElementById(\"form1\").encoding=\"application/x-www-form-urlencoded\";"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列關於 HTML5 canvas 敘述，哪一項是錯誤的？",
+    "options": [
+      "canvas 元素本身並沒有繪製能力，它僅是圖形的容器",
+      "canvas 元素使用 JavaScript 在網頁上繪製圖像",
+      "getContext() 方法可返回一個對象，該對象提供了用於在畫布上繪圖的方法和屬性",
+      "getContext() 對象屬性和方法，可用於在畫布上繪製線條、矩形和圓形等等，但不可繪製文本"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一項為<canvas>標籤的用途？",
+    "options": [
+      "Connect Remote Server",
+      "Local Database",
+      "Draw Images",
+      "Web SQL"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，關於 media 的寫法，下列敘述哪一項錯誤？<br><img src='html/html17.png' alt=''>",
+    "options": [
+      "media=\"screen and (max-height:700px)\"",
+      "media=\"screen or (max-height:700px)\"",
+      "media=\"not screen and (max-height:700px)\"",
+      "media=\"screen,(max-height:700px)\""
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "當 Video 載入發生錯誤時，會觸發下列哪些事件？",
+    "options": [
+      "onloadedmetadata",
+      "onsuspend",
+      "onerror",
+      "onloadstart"
+    ],
+    "answer": [
+      3,
+      4
+    ]
+  },
+  {
+    "question": "下列哪些屬於互動式內容（Interactive Content）？",
+    "options": [
+      "textarea",
+      "video（has controls attribute）",
+      "canvas",
+      "svg"
+    ],
+    "answer": [
+      1,
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種不屬於 controls 屬性的表達方法？",
+    "options": [
+      "<video controls>…</video>",
+      "<video controls=\"play\">…</video>",
+      "<video controls=\"controls\">…</video>",
+      "<video controls=\"\">…</video>"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種為 Audio 使用到的標籤？",
+    "options": [
+      "<object>標籤",
+      "<source>標籤",
+      "<datalist>標籤",
+      "<embed>標籤"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，關於 Canvas 的使用，下列哪一項為其執行結果？<br><img src='html/html18.png' alt=''>",
+    "options": [
+      "甲",
+      "乙",
+      "丙",
+      "丁"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼片斷，下列敘述哪些錯誤？<br><img src='html/html19.png' alt=''>",
+    "options": [
+      "繪製矩形圖形",
+      "繪製背景顏色為白色",
+      "hight=10px，width=10px",
+      "x 座標=50，y 座標=100"
+    ],
+    "answer": [
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "question": "在 Video 元素中，下列哪一種屬性屬於立即可用（Immediately Available）？",
+    "options": [
+      "currentSrc",
+      "videoWidth",
+      "height",
+      "duration"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一項不是 SVG 的特性？",
+    "options": [
+      "可用來設計動畫",
+      "圖像縮放不會失真",
+      "可以壓縮",
+      "HTML 格式的圖形"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "在 Media Elements 中，下列哪一項不為 media.error.code 的回傳值？",
+    "options": [
+      "MEDIA_ERR_ABORTED(1)",
+      "MEDIA_ERR_NETWORK(2)",
+      "MEDIA_ERR_ENCODE(3)",
+      "MEDIA_ERR_SRC_NOT_SUPPORTED(4)"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "媒體資料（Media Data）於資料取得（Fetching）過程中，由使用者中止時，下列敘述哪些正確？",
+    "options": [
+      "media.error.code=MEDIA_ERR_ABORTED",
+      "if(media.readyState=HAVE_NOTHING) then(media.networkState=NETWORK_EMPTY)",
+      "media.readyState=HAVE_NOTHING",
+      "media.networkState=NETWORK_IDLE"
+    ],
+    "answer": [
+      1,
+      2
+    ]
+  },
+  {
+    "question": "在<canvas>標籤中，下列哪些為漸變（Gradient）可使用的類型？",
+    "options": [
+      "linear",
+      "sweep",
+      "radial",
+      "elliptical"
+    ],
+    "answer": [
+      1,
+      3
+    ]
+  },
+  {
+    "question": "textAlign 為控制<canvas>標籤文字對齊的屬性，下列哪一項不為 textAlign 的值？",
+    "options": [
+      "right",
+      "top",
+      "left",
+      "start"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種是當媒體（Media）運行中止時，所觸發的事件？",
+    "options": [
+      "onsuspend",
+      "onabort",
+      "onstop",
+      "onended"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一項是定義類別選擇器（Class Selector）的語法？",
+    "options": [
+      ".myClass{color:red;}",
+      "#myClass{color:red;}",
+      "@myClass{color:red;}",
+      "*myClass{color:red;}"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，假設有以下的 CSS 後代選擇器（Descendant Selectors）設定，所產生的「網頁內容」文字顏色應為下列哪一種？<br><img src='html/html20.png' alt=''>",
+    "options": [
+      "紅色（Red）",
+      "綠色（Green）",
+      "藍色（Blue）",
+      "黑色（Black）"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，關於 CSS3 撰寫，下列哪一項為此程式碼的語法錯誤個數？<br><img src='html/html21.png' alt=''>",
+    "options": [
+      "一個",
+      "兩個",
+      "三個",
+      "四個"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "若要設定文字的背景色為紅色，下列哪一種語法無法達到此功能？",
+    "options": [
+      "background-color:rgb(#ff0000)",
+      "background-color:rgb(255,0,0);",
+      "background-color:hsl(0,100%,50%);",
+      "background-color:red;"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "下列哪些是 background-origin 屬性的設定值？",
+    "options": [
+      "padding-box",
+      "border-box",
+      "content-box",
+      "margin-box"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "question": "關於語法 border:2px solid; border-radius:25px 的功能，下列敘述哪些正確？",
+    "options": [
+      "產生一個半徑 25 pixel 的正圓形邊框",
+      "產生一個圓角的長方型邊框",
+      "邊框的寬度為 2 pixel",
+      "邊框的長度是 2 pixel"
+    ],
+    "answer": [
+      2,
+      3
+    ]
+  },
+  {
+    "question": "關於邊框（Border），下列敘述哪一項錯誤？",
+    "options": [
+      "border-radius 是在 CSS3 才加入的語法",
+      "border-round 的功能是產生圓角的邊框（Border）",
+      "border:2px solid 指定邊框（Border）是寬度為 2 pixel 的實線",
+      "border-image 可以把指定圖案作為邊框（Border）"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "關於設定字型的語法，下列敘述哪些正確？",
+    "options": [
+      "p{font:\"Times New Roman\";}",
+      "p{font-family:\"Times New Roman\",Times,serif;}",
+      "p{font=\"Times New Roman\";}",
+      "p{font-style:oblique;}"
+    ],
+    "answer": [
+      2,
+      4
+    ]
+  },
+  {
+    "question": "設定字型的語法中，下列敘述哪一項為 font-family:\"Times New Roman\",Serif 所代表的意思？",
+    "options": [
+      "限制只能用到\"Times New Roman\"與 Serif 兩種字型",
+      "優先使用\"Times New Roman\"，如果沒有則採用 Serif",
+      "h1 採用\"Times New Roman\"，h2 採用 Serif",
+      "一般採用”Times New Roman”，粗體採用 Serif"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一項為 box-sizing 屬性的功能？",
+    "options": [
+      "定義指定元素的大小",
+      "定義指定元素大小改變的方式",
+      "指定元素放入某個區域的方式",
+      "指定元素高度"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪些是 text-align 屬性允許的值？",
+    "options": [
+      "left",
+      "right",
+      "center",
+      "justify"
+    ],
+    "answer": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "question": "下列哪一種屬性可使英文單字之間產生間距？",
+    "options": [
+      "white-space",
+      "letter-spacing",
+      "word-spacing",
+      "text-indent"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪一項設定值可以用 text-decoration 屬性將 HTML 元素的文字加上刪除線？",
+    "options": [
+      "line-through",
+      "overline",
+      "none",
+      "underline"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "下列哪一項敘述可以將項目符號指定為圖檔 01.gif？",
+    "options": [
+      "list-style-type:url (01.gif)",
+      "list-style-image:01.gif",
+      "list-style:url(01.gif)",
+      "list-style-position:01.gif"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪些敘述可以將彈性項目的排版方向，設為「由左而右」（書寫方向從左至右時）？",
+    "options": [
+      "flex-direction:row",
+      "flex-direction:row-reverse",
+      "flew-wrap:nowrap",
+      "flex-flow:row"
+    ],
+    "answer": [
+      1,
+      4
+    ]
+  },
+  {
+    "question": "下列哪一項敘述會讓項目沒有任何彈性？",
+    "options": [
+      "flex:initial",
+      "flex:auto",
+      "flex:none",
+      "flex:1"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示，（圖一）的水平彈性容器寬度為 1000px，若將容器寬度縮小為 800px（如（圖二）），請問下列哪一項依序為 A、B、C 三個項目縮小後的像素寬度值？<br><img src='html/html22.png' alt=''>",
+    "options": [
+      "170、460、170",
+      "183.3、433.3、183.3",
+      "160、480、160",
+      "165、470、165"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示，（圖一）的水平彈性容器寬度為 900px，A、B、C 三個項目寬度分別為 100px、250px、100px，若利用（圖二）的 flex-grow 屬性，使 A、B、C 三個項目依成長係數比擴展，以填滿水平彈性容器，請問下列哪一項依序為 A、B、C 三個項目擴展後的像素寬度值？<br><img src='html/html23.png' alt=''>",
+    "options": [
+      "325、250、325",
+      "190、520、190",
+      "180、540、180",
+      "195、510、195"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "CSS3 支援多欄配置，下列哪些屬於多欄配置的屬性？",
+    "options": [
+      "column-count",
+      "column-gap",
+      "column-rule",
+      "column-add"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，會產生下列哪一種效果？<br><img src='html/html24.png' alt=''>",
+    "options": [
+      "甲",
+      "乙",
+      "丙",
+      "丁"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於語法 repeating-radial-gradient(white,black 20px,white 20px)產生的效果，下列敘述哪些正確？",
+    "options": [
+      "產生黑白相間的同心圓",
+      "產生兩個不重疊的黑色橢圓，邊框寬度 20px",
+      "圓心是白色",
+      "產生一個黑色橢圓"
+    ],
+    "answer": [
+      1,
+      3
+    ]
+  },
+  {
+    "question": "關於跑馬燈（Marquee），下列敘述哪些正確？",
+    "options": [
+      "overflow-style 可用來指定跑馬燈（Marquee）捲動的方式",
+      "marquee-style 可用來指定跑馬燈（Marquee）捲動的方式",
+      "marquee-direction 可用來指定跑馬燈（Marquee）捲動的方式",
+      "overflow-direction 可用來指定跑馬燈（Marquee）捲動的方式"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "question": "媒體查詢（Media Queries）語法\"not screen and (color)\"在下列哪一種情況的值會是 true？",
+    "options": [
+      "媒體（Media）不是彩色螢幕（Color Screen）",
+      "媒體（Media）是彩色螢幕（Color Screen）",
+      "媒體（Media）不是螢幕（Screen）或不是彩色",
+      "永遠不會"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "若要設定一個 CSS 只有在螢幕是直立或是投影機是直立的情況下執行，應該用下列哪一種語法？",
+    "options": [
+      "@media screen and projection and (orientation:portrait)",
+      "@media screen,(orientation:portrait) or projection, (orientation:portrait)",
+      "@media screen and (orientation:portrait), projection and (orientation:portrait)",
+      "@media screen and(orientation:portrait) or projection and (orientation:portrait)"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，會產生下列哪一種圖形（忽略瀏覽器前綴（Prefix））？<br><img src='html/html25.png' alt=''>",
+    "options": [
+      "甲",
+      "乙",
+      "丙",
+      "丁"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於 CSS 轉換（Transformation）的語法，下列哪些錯誤？",
+    "options": [
+      "scale(3)",
+      "skewY(20deg)",
+      "rotate(20,30)",
+      "rotate3d(120deg,1,3,1)"
+    ],
+    "answer": [
+      3,
+      4
+    ]
+  },
+  {
+    "question": "媒體查詢（Media Queries）語法 all and(min-width:50px)在下列哪一種情況的值會是 true？",
+    "options": [
+      "所有情況",
+      "沒有任何情況",
+      "寬度大於 50px",
+      "寬度小於 50px"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示，若要將附圖左變成附圖右，可用下列哪一段程式碼來達成？<br><img src='html/html26.png' alt=''>",
+    "options": [
+      "transform:rotateX(-70deg);",
+      "transform:rotateY(-70deg);",
+      "transform:rotateZ(-70deg);",
+      "transform:rotate(-70deg);"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "關於轉換（Transformation），下列敘述哪些正確？",
+    "options": [
+      "scale(2,2)和 scale(2)的效果一樣",
+      "translate(2px,2px)和 translate(2px)的效果一樣",
+      "skewX(10deg)和 skewX(-350deg)的效果一樣",
+      "rotate3d(1,0,0,10deg)和 rotateX(10deg)的效果一樣"
+    ],
+    "answer": [
+      1,
+      3,
+      4
+    ]
+  },
+  {
+    "question": "在 3D 轉換（Transformation）裡面，matrix3d 方法需要輸入的參數個數，應為下列哪一項？",
+    "options": [
+      "2",
+      "3",
+      "6",
+      "16"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一個屬性定義了動畫何時開始，且允許動畫在應用後的某個時間開始執行？",
+    "options": [
+      "animation-stop",
+      "animation-start",
+      "animation-control",
+      "animation-delay"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一個 CSS 屬性定義動畫（Animation）的運行方向？",
+    "options": [
+      "animation",
+      "animation-run",
+      "animation-repeat",
+      "animation-direction"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一個 CSS 屬性定義將在動畫規則中進行動畫處理的屬性？",
+    "options": [
+      "@keyframes",
+      "animation-origin",
+      "transform",
+      "animation"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "下列哪一個屬性指定動畫應運行的次數？",
+    "options": [
+      "animation-repeat",
+      "animation-count",
+      "animation-iteration-count",
+      "animation-delay"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪一種為屬性 animation-timing-function 的功能？",
+    "options": [
+      "只能決定動畫（Animation）重複次數",
+      "只能決定動畫（Animation）周期長度",
+      "決定一個動畫（Animation）在一周期內變化方式",
+      "決定動畫（Animation）重複次數，周期長度，及延遲時間"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "下列哪些是屬性 animation-fill-mode 的預設值？",
+    "options": [
+      "forwards",
+      "backwards",
+      "both",
+      "none"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "下列哪一項是 HTML5 支援的 Web 儲存（Web Storage）功能？",
+    "options": [
+      "globalStorage",
+      "applicationStorage",
+      "localStorage",
+      "tempStorage"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "HTML5 建議每個網站可使用的 Web 儲存（Web Storage）大小，應為下列哪一項？",
+    "options": [
+      "4 megabytes",
+      "5 megabytes",
+      "6 megabytes",
+      "7 megabytes"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，如果使用者不願意提供所在位置資訊，在程式碼的 err 變數（方框處），將取得下列哪一種錯誤代號？<br><img src='html/html27.png' alt=''>",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "0"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "要使用 Offline Web Application，在網站伺服器上要設定下列哪一種 MIME type？",
+    "options": [
+      "text/cache-manifest",
+      "text/cache",
+      "application/cache-manifest",
+      "multipart/cache"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，maximumAge:600000 代表的意思應為下列哪一項？<br><img src='html/html28.png' alt=''>",
+    "options": [
+      "取得使用者 6 分鐘前的地理位置",
+      "取得使用者 60 秒前的地理位置",
+      "取得使用者 60 分鐘前的地理位置",
+      "取得使用者 10 分鐘前的地理位置"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "在離線網路應用程式中，如果發現需要重新下載新的檔案時，會觸發下列哪一種事件？",
+    "options": [
+      "cached",
+      "noupdate",
+      "updateready",
+      "obsolete"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "關於 Web Workers，下列敘述哪一項錯誤？",
+    "options": [
+      "在執行緒（Thread）中可以使用 navigator 物件",
+      "在執行緒（Thread）中可以使用 document 物件",
+      "在執行緒（Thread）中可以使用 XMLHttpRequest 物件",
+      "在執行緒（Thread）中可以使用 WebSockets"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，底線位置應加入下列哪一段程式碼？<br><img src='html/html29.png' alt=''>",
+    "options": [
+      "worker.onconnect=show",
+      "worker.port.onconnect=show",
+      "worker.onmessage=show",
+      "worker.port.onmessage=show"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "在網頁中要停止執行緒（Thread）的執行，需使用下列哪一種方法？",
+    "options": [
+      "terminate()",
+      "close()",
+      "stop()",
+      "end()"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "在 HTML5 技術中，要讓 JavaScript 程式碼可以單獨的執行，不會影響使用者介面上的操作，需使用下列哪一種技術？",
+    "options": [
+      "Web Sockets",
+      "File System",
+      "Web Workers",
+      "Cross Document Messaging"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "要建立或開啟 Indexed Database，需使用下列哪一種介面所定義的方法？",
+    "options": [
+      "IDBObjectStore",
+      "IDBDatabase",
+      "IDBRequest",
+      "IDBFactory"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，開啟 Indexed Database 後，建立 Object Store 時，需將第一行方框內的程式碼加入下列哪一行程式碼中？<br><img src='html/html30.png' alt=''>",
+    "options": [
+      "D",
+      "C",
+      "B",
+      "A"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "下列哪一種元素，無法進行拖放（Drag and Drop）操作？",
+    "options": [
+      "<img src=\"HTML5_Logo.png\" alt=\"HTML5 Logo\">",
+      "<a href=\"http://www.w3.org\">World Wide Web Consortium(W3C)</a>",
+      "<div>Drag and Drop</div>",
+      "<ul><li draggable=\"true\">HTML5</li></ul>"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "如附圖所示程式碼，HTML5 提供了支援檔案拖曳（Drag）的功能，應於底線處加入下列哪一段程式，才可以完成？<br><img src='html/html31.png' alt=''>",
+    "options": [
+      "var files=e.dataTransfer.files",
+      "var files=e.dataTransfer.types",
+      "var files=e.dataTransfer.getData(type)",
+      "var files=e.dataTransfer.getData(file)"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "在 HTML5 中，針對網頁上的內容提供了編輯（Editing）API，下列哪一種 document 物件所提供的方法，可以改變一段文字的樣式，如文字的大小、顏色等？",
+    "options": [
+      "queryCommandEnabled()",
+      "queryCommandIndeterm()",
+      "execCommand()",
+      "queryCommandSupported()"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "HTML5 提供了網頁之間互相傳遞及接收資料的功能，要接收另一個視窗發送的訊息，要使用下列哪一種事件？",
+    "options": [
+      "onconnect",
+      "onmessage",
+      "onload",
+      "onreadystatechange"
+    ],
+    "answer": [
+      2
+    ]
+  },
+  {
+    "question": "在 HTML5 中要單向的從伺服器端發送訊息到瀏覽器端，對於伺服器端的技術，需設定下列哪一項的MIME 類型？",
+    "options": [
+      "text/event-stream",
+      "text/cache-manifest",
+      "text/plain",
+      "text/html"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "當 WebSocket 物件建立成功後，接受資料時，會引發下列哪一種事件？",
+    "options": [
+      "onconnect",
+      "onopen",
+      "onmessage",
+      "onreadystatechange"
+    ],
+    "answer": [
+      3
+    ]
+  },
+  {
+    "question": "以下哪項是 JavaScript 的基本功能之一？",
+    "options": [
+      "Single Threaded",
+      "Multi Threaded",
+      "Single Threaded and Multi Threaded",
+      "Simple-Threaded"
+    ],
+    "answer": [
+      1
+    ]
+  },
+  {
+    "question": "在 FileSystem API 中，要刪除一個資料夾以及此資料夾的檔案，可以使用下列哪一種 DirectoryEntry介面所提供的方法？",
+    "options": [
+      "delete()",
+      "remove()",
+      "removeAll()",
+      "removeRecursively()"
+    ],
+    "answer": [
+      4
+    ]
+  },
+  {
+    "question": "在 HTML5 技術中使用 Web Notification 技術以在用戶端顯示提示訊息，基於安全性考量，於出現提示訊息之前需先經過用戶端的允許，下列哪一段程式碼可以完成此功能？",
+    "options": [
+      "navigator.notifications.requestPermission();",
+      "window.notifications.requestPermission();",
+      "window.notifications.getPermission();",
+      "navigator.notifications.getPermission();"
+    ],
+    "answer": [
+      2
+    ]
+  }
+]
