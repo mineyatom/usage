@@ -162,9 +162,15 @@
                 </select>
             </div>
             <button id="startTest" class="start-button">開始測驗</button>
+            <button id="showStats">查看出題統計</button>
+            <select id="statsQuizSelect" style="display: none; margin-top: 10px;">
+                <option value="quiz1">軟體開發知識2022版</option>
+                <option value="quiz2">軟體開發知識2025版</option>
+                <option value="quiz3">HTML</option>
+            </select>
         </div>
 
-        <div id="questionPage" class="card">
+        <div id="questionPage" class="card" style="display:none;">
             <div id="timer">剩餘時間：40:00</div>
             <div id="score" style="display:none;"></div>
             <div id="questionNumber"></div>
@@ -181,9 +187,11 @@
         </div>
 
         <div id="answers" class="card"></div>
+        <div id="statsTableContainer" class="card"></div>
     </div>
 
     <script>
+        // JavaScript 程式碼整合區
         let quizData = [];
         let currentQuestionIndex = 0;
         let score = 0;
@@ -229,15 +237,25 @@
                 });
         }
 
+        function recordQuestionStats(id, isCorrect) {
+            const statsKey = "quiz_stats";
+            let stats = JSON.parse(localStorage.getItem(statsKey)) || {};
+            if (!stats[id]) stats[id] = {
+                count: 0,
+                correct: 0
+            };
+            stats[id].count++;
+            if (isCorrect) stats[id].correct++;
+            localStorage.setItem(statsKey, JSON.stringify(stats));
+        }
+
         function loadQuestion() {
             const q = quizData[currentQuestionIndex];
             document.getElementById("questionNumber").innerText = `第 ${currentQuestionIndex + 1} / ${totalQuestions} 題`;
-
             const questionEl = document.getElementById("question");
             const optionsEl = document.getElementById("options");
             questionEl.innerHTML = "";
             optionsEl.innerHTML = "";
-
             const images = q.question.match(/<img src='(.*?)'/);
             if (images) {
                 const img = document.createElement("img");
@@ -245,11 +263,9 @@
                 img.className = "question-image";
                 questionEl.appendChild(img);
             }
-
             const text = document.createElement("div");
             text.innerHTML = q.question.replace(/<img.*?>/g, '');
             questionEl.appendChild(text);
-
             q.options.forEach((opt, i) => {
                 const label = document.createElement("label");
                 const input = document.createElement("input");
@@ -262,18 +278,16 @@
                 label.append(` ${opt}`);
                 optionsEl.appendChild(label);
             });
-
             document.getElementById("prev").disabled = currentQuestionIndex === 0;
             updateProgressBar();
+            recordQuestionStats(q.id || `Q${currentQuestionIndex + 1}`, false);
         }
 
         function updateScore() {
             const selected = Array.from(document.querySelectorAll("input[name='answer']:checked")).map(opt => parseInt(opt.value));
             userAnswers[currentQuestionIndex] = selected;
-
             const correct = quizData[currentQuestionIndex].answer;
             const isCorrect = JSON.stringify(selected.sort()) === JSON.stringify(correct.sort());
-
             if (isInstantMode) {
                 if (isCorrect && !checkedQuestions[currentQuestionIndex]) {
                     score += 2;
@@ -286,6 +300,7 @@
                 scoreEl.innerText = `你的得分：${score} / ${totalQuestions * 2}`;
                 scoreEl.style.display = "block";
             }
+            recordQuestionStats(quizData[currentQuestionIndex].id || `Q${currentQuestionIndex + 1}`, isCorrect);
         }
 
         function updateProgressBar() {
@@ -295,7 +310,6 @@
 
         function endQuiz() {
             clearInterval(timerInterval);
-
             if (!isInstantMode) {
                 score = 0;
                 quizData.forEach((q, i) => {
@@ -303,16 +317,12 @@
                     const correct = q.answer;
                     const isCorrect = JSON.stringify(userAns.sort()) === JSON.stringify(correct.sort());
                     if (isCorrect) score += 2;
+                    recordQuestionStats(q.id || `Q${i + 1}`, isCorrect);
                 });
             }
-
             const passed = score >= passingScore * 2;
-            scoreEl.innerHTML = `
-        <div style="font-size: 20px; margin-bottom: 10px;">你的得分：${score} / ${totalQuestions * 2}</div>
-        <div style="color: ${passed ? 'green' : 'red'}; font-size: 24px;">
-          ${passed ? '🎉 恭喜你通過測驗！' : '😢 很可惜，未達到通過分數。'}
-        </div>
-      `;
+            scoreEl.innerHTML = `<div style="font-size: 20px; margin-bottom: 10px;">你的得分：${score} / ${totalQuestions * 2}</div>
+        <div style="color: ${passed ? 'green' : 'red'}; font-size: 24px;">${passed ? '🎉 恭喜你通過測驗！' : '😢 很可惜，未達到通過分數。'}</div>`;
             const restartBtn = document.createElement("button");
             restartBtn.textContent = "重新測驗";
             restartBtn.style.backgroundColor = "#007bff";
@@ -320,16 +330,11 @@
             restartBtn.onclick = () => location.reload();
             scoreEl.appendChild(document.createElement("br"));
             scoreEl.appendChild(restartBtn);
-
             scoreEl.style.display = "block";
-            scoreEl.scrollIntoView({
-                behavior: "smooth"
-            });
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
-
             const answersEl = document.getElementById("answers");
             answersEl.innerHTML = "<h3>詳細解答</h3>";
             quizData.forEach((q, i) => {
@@ -346,54 +351,76 @@
                     else if (!isCorrect && isSelected) label.className = "wrong";
                     div.appendChild(label);
                 });
-
                 const userAnsText = (userAnswers[i] || []).sort().join(', ') || "未作答";
                 const correctAnsText = q.answer.sort().join(', ');
                 const explanation = document.createElement("div");
                 explanation.innerHTML = `<strong>你的答案：</strong>${userAnsText}　｜　<strong>正確答案：</strong>${correctAnsText}`;
                 explanation.style.marginTop = "10px";
                 div.appendChild(explanation);
-
                 answersEl.appendChild(div);
             });
         }
 
         document.getElementById("submit").addEventListener("click", () => {
             currentQuestionIndex++;
-            if (currentQuestionIndex >= totalQuestions) {
-                endQuiz();
-            } else {
-                loadQuestion();
-            }
+            if (currentQuestionIndex >= totalQuestions) endQuiz();
+            else loadQuestion();
         });
-
         document.getElementById("prev").addEventListener("click", () => {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
                 loadQuestion();
             }
         });
-
         document.getElementById("finish").addEventListener("click", endQuiz);
-
         document.getElementById("startTest").addEventListener("click", () => {
             const modeSelected = document.querySelector('input[name="mode"]:checked');
-            if (!modeSelected) {
-                alert("請選擇模式後再開始測驗！");
-                return;
-            }
+            if (!modeSelected) return alert("請選擇模式後再開始測驗！");
             isInstantMode = document.getElementById("instantMode").checked;
-
             document.getElementById("startPage").style.display = "none";
             document.getElementById("questionPage").style.display = "block";
-
             document.body.style.backgroundColor = isInstantMode ? "#ffe6ec" : "#e6ecf2";
-
             loadQuiz();
             startTimer();
+        });
+        document.getElementById("showStats").addEventListener("click", () => {
+            document.getElementById("statsQuizSelect").style.display = "inline-block";
+        });
+        document.getElementById("statsQuizSelect").addEventListener("change", function() {
+            const selected = this.value;
+            fetch(quizFiles[selected])
+                .then(res => res.json())
+                .then(data => {
+                    const stats = JSON.parse(localStorage.getItem("quiz_stats")) || {};
+                    const table = document.createElement("table");
+                    table.border = "1";
+                    table.style.width = "100%";
+                    table.innerHTML = "<tr><th>題號</th><th>題目內容</th><th>出題次數</th><th>正確率</th></tr>";
+                    data.forEach((q, i) => {
+                        const key = q.id || `Q${i + 1}`;
+                        const count = stats[key]?.count || 0;
+                        const correct = stats[key]?.correct || 0;
+                        const rate = count ? `${Math.round((correct / count) * 100)}%` : "0%";
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                    <td>${i + 1}</td>
+                    <td>${q.question.replace(/<img.*?>/g, '').slice(0, 30)}...</td>
+                    <td>${count}</td>
+                    <td>${rate}</td>`;
+                        table.appendChild(row);
+                    });
+                    const container = document.getElementById("statsTableContainer");
+                    container.innerHTML = "";
+                    container.appendChild(table);
+                })
+                .catch(err => {
+                    alert("載入統計資料錯誤！");
+                    console.error(err);
+                });
         });
 
     </script>
 </body>
 
 </html>
+
