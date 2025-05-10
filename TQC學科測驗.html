@@ -13,18 +13,15 @@
             margin: 0;
             padding: 0;
         }
-
         .container {
             max-width: 900px;
             margin: auto;
             padding: 20px;
         }
-
         h1 {
             text-align: center;
             color: #4a90e2;
         }
-
         .card {
             background: white;
             padding: 20px;
@@ -32,23 +29,16 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
         .mode-select label {
             display: block;
             margin-bottom: 10px;
         }
-
         .question-image {
             max-width: 100%;
             max-height: 300px;
             object-fit: contain;
             margin: 10px 0;
         }
-
-        #questionPage {
-            display: none;
-        }
-
         #options label {
             display: block;
             background: #f8f9fa;
@@ -57,34 +47,19 @@
             border-radius: 10px;
             border: 1px solid #ccc;
         }
-
         .button-group {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
-
-        button {
-            flex: 1 1 100%;
-            padding: 14px;
-            font-size: 18px;
-            border: none;
-            border-radius: 12px;
-            background-color: #4a90e2;
-            color: white;
-            cursor: pointer;
-            margin-bottom: 15px;
-        }
-
+        
         button:hover {
             background-color: #357ab7;
         }
-
         button:active {
             transform: scale(0.97);
             transition: transform 0.1s ease;
         }
-
         .start-button {
             font-size: 16px;
             padding: 10px 20px;
@@ -92,7 +67,6 @@
             flex: none;
             margin-top: 10px;
         }
-
         #progressBar {
             height: 15px;
             background-color: #e0e0e0;
@@ -100,56 +74,121 @@
             margin: 20px 0;
             overflow: hidden;
         }
-
         #progressBarFill {
             height: 100%;
             width: 0%;
             background-color: #28a745;
             transition: width 0.3s ease;
         }
-
         .correct {
             background-color: #c8e6c9;
             border-color: #2ecc71;
         }
-
         .missed {
             background-color: #bbdefb;
             border-color: #2196f3;
         }
-
         .wrong {
             background-color: #ffcdd2;
             border-color: #e53935;
         }
-
         @media screen and (max-width: 600px) {
             .button-group {
                 flex-direction: column;
             }
-
             .question-image {
                 max-height: 200px;
             }
         }
-
         @media screen and (max-width: 900px) and (min-width: 601px) {
             .button-group {
                 flex-direction: row;
             }
-
             button {
                 flex: 1 1 45%;
             }
         }
+        .option {
+            word-break: break-word;
+            white-space: normal;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+        }
+        .green {
+            background-color: #c8e6c9;
+        }
+        .yellow {
+            background-color: #fff9c4;
+        }
+        .red {
+            background-color: #ffcdd2;
+        }button#startTest:hover {
+  background-color: #218838;
+  transform: scale(1.03);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
 
-    </style>
+button#showStats:hover {
+  background-color: #002244;
+  transform: scale(1.03);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+button#clearStats:hover {
+  background-color: #c82333;
+  transform: scale(1.03);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+        .btn {
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+        .btn-green { background-color: #28a745; }
+        .btn-green:hover { background-color: #218838; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); transform: scale(1.03); }
+        .btn-blue { background-color: #003366; }
+        .btn-blue:hover { background-color: #002244; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); transform: scale(1.03); }
+        .btn-red { background-color: #dc3545; }
+        .btn-red:hover { background-color: #c82333; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); transform: scale(1.03); }
+.button-group button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.button-group button:hover {
+  background-color: #357ab7;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.button-group button:active {
+  transform: scale(0.97);
+}
+</style>
+
+
 </head>
 
 <body>
     <div class="container">
         <h1>TQC 學科測驗</h1>
-
         <div id="startPage" class="card">
             <div class="mode-select">
                 <label><input type="radio" name="mode" id="instantMode" value="instant" /> 練習模式（即時對答案）</label>
@@ -161,13 +200,14 @@
                     <option value="quiz3">HTML</option>
                 </select>
             </div>
-            <button id="startTest" class="start-button">開始測驗</button>
-            <button id="showStats">查看出題統計</button>
+            <button id="startTest" class="btn btn-green">開始測驗</button>
+            <button id="showStats" class="btn btn-blue">查看出題統計</button>
             <select id="statsQuizSelect" style="display: none; margin-top: 10px;">
                 <option value="quiz1">軟體開發知識2022版</option>
                 <option value="quiz2">軟體開發知識2025版</option>
                 <option value="quiz3">HTML</option>
             </select>
+            <button id="clearStats" class="btn btn-red">清除出題紀錄</button>
         </div>
 
         <div id="questionPage" class="card" style="display:none;">
@@ -191,65 +231,113 @@
     </div>
 
     <script>
-        // JavaScript 程式碼整合區
-        let quizData = [];
-        let currentQuestionIndex = 0;
-        let score = 0;
-        const totalQuestions = 50;
-        const passingScore = 35;
-        let userAnswers = [];
-        let checkedQuestions = Array(totalQuestions).fill(false);
-        let timeLeft = 2400;
-        let timerInterval;
-        let isInstantMode = false;
-
-        const timerEl = document.getElementById("timer");
-        const scoreEl = document.getElementById("score");
-        const progressBarFill = document.getElementById("progressBarFill");
-
         const quizFiles = {
             quiz1: "questions.json",
             quiz2: "questions2.json",
             quiz3: "TQCHTML.json"
         };
 
+        let quizData = [], currentQuestionIndex = 0, score = 0;
+        const totalQuestions = 50, passingScore = 35;
+        let userAnswers = [], checkedQuestions = Array(totalQuestions).fill(false);
+        let timeLeft = 2400, timerInterval, isInstantMode = false;
+
+        const timerEl = document.getElementById("timer");
+        const scoreEl = document.getElementById("score");
+        const progressBarFill = document.getElementById("progressBarFill");
+
         function startTimer() {
-            timerInterval = setInterval(() => {
-                if (timeLeft <= 0) return endQuiz();
-                let min = Math.floor(timeLeft / 60);
-                let sec = (timeLeft % 60).toString().padStart(2, '0');
-                timerEl.innerText = `剩餘時間：${min}:${sec}`;
-                timeLeft--;
-            }, 1000);
-        }
+    timerInterval = setInterval(() => {
+        if (timeLeft <= 0) return endQuiz();
+        let min = Math.floor(timeLeft / 60);
+        let sec = (timeLeft % 60).toString().padStart(2, '0');
+        timerEl.innerText = `剩餘時間：${min}:${sec}`;
+        timeLeft--;
+    }, 1000);
+}
 
         function loadQuiz() {
-            const selectedQuiz = document.getElementById("quizSelect").value;
-            fetch(quizFiles[selectedQuiz])
-                .then(res => res.json())
-                .then(data => {
-                    quizData = data.sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
+    const selectedQuiz = document.getElementById("quizSelect").value;
+    fetch(quizFiles[selectedQuiz])
+        .then(res => res.json())
+        .then(data => {
+            const stats = JSON.parse(localStorage.getItem("quiz_stats")) || {};
+            const weightedPool = [];
+
+            data.forEach((q, i) => {
+                const key = q.id || `Q${i + 1}`;
+                const count = stats[key]?.count || 0;
+                const weight = 1 / (count + 1); // 權重越少次數越高
+                const times = Math.ceil(weight * 10); // 擴大差距讓隨機效果更明顯
+                for (let j = 0; j < times; j++) {
+                    weightedPool.push(q);
+                }
+            });
+
+            const selected = [];
+            while (selected.length < totalQuestions && weightedPool.length > 0) {
+                const index = Math.floor(Math.random() * weightedPool.length);
+                const q = weightedPool.splice(index, 1)[0];
+                if (!selected.includes(q)) selected.push(q);
+            }
+
+            quizData = selected;
+                    currentQuestionIndex = 0;
                     loadQuestion();
                 })
-                .catch(err => {
-                    alert("題庫載入錯誤，請確認 JSON 檔案存在並正確。");
-                    console.error(err);
-                });
+                .catch(err => alert("題庫載入錯誤"));
         }
 
         function recordQuestionStats(id, isCorrect) {
-            const statsKey = "quiz_stats";
-            let stats = JSON.parse(localStorage.getItem(statsKey)) || {};
-            if (!stats[id]) stats[id] = {
-                count: 0,
-                correct: 0
-            };
-            stats[id].count++;
-            if (isCorrect) stats[id].correct++;
-            localStorage.setItem(statsKey, JSON.stringify(stats));
+            if (!isInstantMode) {
+                const statsKey = "quiz_stats";
+                let stats = JSON.parse(localStorage.getItem(statsKey)) || {};
+                if (!stats[id]) stats[id] = { count: 0, correct: 0 };
+                stats[id].count++;
+                if (isCorrect) stats[id].correct++;
+                localStorage.setItem(statsKey, JSON.stringify(stats));
+            }
         }
 
+        document.getElementById("clearStats").addEventListener("click", () => {
+            localStorage.removeItem("quiz_stats");
+            alert("出題紀錄已清除。");
+        });
+
+        document.getElementById("statsQuizSelect").addEventListener("change", function () {
+            const selected = this.value;
+            fetch(quizFiles[selected])
+                .then(res => res.json())
+                .then(data => {
+                    const stats = JSON.parse(localStorage.getItem("quiz_stats")) || {};
+                    const table = document.createElement("table");
+                    table.border = "1";
+                    table.style.width = "100%";
+                    table.innerHTML = "<tr><th>題號</th><th>題目內容</th><th>出題次數</th><th>正確率</th></tr>";
+                    data.forEach((q, i) => {
+                        const key = q.id || `Q${i + 1}`;
+                        const count = stats[key]?.count || 0;
+                        const correct = stats[key]?.correct || 0;
+                        const rate = count ? Math.round((correct / count) * 100) : 0;
+                        const rateText = rate + "%";
+                        const row = document.createElement("tr");
+const rateTdClass = rate >= 80 ? "green" : rate >= 60 ? "yellow" : "red";
+row.innerHTML = `
+    <td>${i + 1}</td>
+    <td>${q.question.replace(/<img.*?>/g, '').slice(0, 30)}...</td>
+    <td>${count}</td>
+    <td class="${rateTdClass}">${rateText}</td>`;
+                        table.appendChild(row);
+                    });
+                    const container = document.getElementById("statsTableContainer");
+                    container.innerHTML = "";
+                    container.appendChild(table);
+                });
+        });
+    
+
         function loadQuestion() {
+            
             const q = quizData[currentQuestionIndex];
             document.getElementById("questionNumber").innerText = `第 ${currentQuestionIndex + 1} / ${totalQuestions} 題`;
             const questionEl = document.getElementById("question");
@@ -264,7 +352,7 @@
                 questionEl.appendChild(img);
             }
             const text = document.createElement("div");
-            text.innerHTML = q.question.replace(/<img.*?>/g, '');
+            text.textContent = q.question.replace(/<img.*?>/g, ''); // 👉 防止 iframe、canvas 等佔位空白
             questionEl.appendChild(text);
             q.options.forEach((opt, i) => {
                 const label = document.createElement("label");
@@ -280,7 +368,6 @@
             });
             document.getElementById("prev").disabled = currentQuestionIndex === 0;
             updateProgressBar();
-            recordQuestionStats(q.id || `Q${currentQuestionIndex + 1}`, false);
         }
 
         function updateScore() {
@@ -300,7 +387,7 @@
                 scoreEl.innerText = `你的得分：${score} / ${totalQuestions * 2}`;
                 scoreEl.style.display = "block";
             }
-            recordQuestionStats(quizData[currentQuestionIndex].id || `Q${currentQuestionIndex + 1}`, isCorrect);
+            recordQuestionStats(`Q${currentQuestionIndex + 1}`, isCorrect);
         }
 
         function updateProgressBar() {
@@ -317,29 +404,31 @@
                     const correct = q.answer;
                     const isCorrect = JSON.stringify(userAns.sort()) === JSON.stringify(correct.sort());
                     if (isCorrect) score += 2;
-                    recordQuestionStats(q.id || `Q${i + 1}`, isCorrect);
+                    recordQuestionStats(`Q${i + 1}`, isCorrect);
                 });
             }
             const passed = score >= passingScore * 2;
             scoreEl.innerHTML = `<div style="font-size: 20px; margin-bottom: 10px;">你的得分：${score} / ${totalQuestions * 2}</div>
-        <div style="color: ${passed ? 'green' : 'red'}; font-size: 24px;">${passed ? '🎉 恭喜你通過測驗！' : '😢 很可惜，未達到通過分數。'}</div>`;
+            <div style="color: ${passed ? 'green' : 'red'}; font-size: 24px;">${passed ? '🎉 恭喜你通過測驗！' : '😢 很可惜，未達到通過分數。'}</div>`;
             const restartBtn = document.createElement("button");
-            restartBtn.textContent = "重新測驗";
-            restartBtn.style.backgroundColor = "#007bff";
+restartBtn.textContent = "重新測驗";
+restartBtn.className = "btn btn-blue";
             restartBtn.style.marginTop = "10px";
             restartBtn.onclick = () => location.reload();
             scoreEl.appendChild(document.createElement("br"));
             scoreEl.appendChild(restartBtn);
             scoreEl.style.display = "block";
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
             const answersEl = document.getElementById("answers");
             answersEl.innerHTML = "<h3>詳細解答</h3>";
             quizData.forEach((q, i) => {
                 const div = document.createElement("div");
-                div.innerHTML = `<strong>第 ${i + 1} 題：</strong> ${q.question.replace(/<img.*?>/g, '')}`;
+                const title = document.createElement("div");
+                title.innerHTML = `<strong>第 ${i + 1} 題：</strong>`;
+                const text = document.createElement("div");
+                text.textContent = q.question.replace(/<img.*?>/g, '');
+                div.appendChild(title);
+                div.appendChild(text);
                 q.options.forEach((opt, j) => {
                     const optionNum = j + 1;
                     const isSelected = userAnswers[i]?.includes(optionNum);
@@ -366,15 +455,26 @@
             if (currentQuestionIndex >= totalQuestions) endQuiz();
             else loadQuestion();
         });
+
         document.getElementById("prev").addEventListener("click", () => {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
                 loadQuestion();
             }
         });
+
         document.getElementById("finish").addEventListener("click", endQuiz);
-        document.getElementById("startTest").addEventListener("click", () => {
-            const modeSelected = document.querySelector('input[name="mode"]:checked');
+
+        document.getElementById("showStats").addEventListener("click", () => {
+    const statsSelect = document.getElementById("statsQuizSelect");
+    statsSelect.style.display = "inline-block";
+    statsSelect.dispatchEvent(new Event("change"));
+    statsSelect.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
+document.getElementById("startTest").addEventListener("click", () => {
+    localStorage.removeItem("appeared_questions");
+    const modeSelected = document.querySelector('input[name="mode"]:checked');
             if (!modeSelected) return alert("請選擇模式後再開始測驗！");
             isInstantMode = document.getElementById("instantMode").checked;
             document.getElementById("startPage").style.display = "none";
@@ -383,44 +483,7 @@
             loadQuiz();
             startTimer();
         });
-        document.getElementById("showStats").addEventListener("click", () => {
-            document.getElementById("statsQuizSelect").style.display = "inline-block";
-        });
-        document.getElementById("statsQuizSelect").addEventListener("change", function() {
-            const selected = this.value;
-            fetch(quizFiles[selected])
-                .then(res => res.json())
-                .then(data => {
-                    const stats = JSON.parse(localStorage.getItem("quiz_stats")) || {};
-                    const table = document.createElement("table");
-                    table.border = "1";
-                    table.style.width = "100%";
-                    table.innerHTML = "<tr><th>題號</th><th>題目內容</th><th>出題次數</th><th>正確率</th></tr>";
-                    data.forEach((q, i) => {
-                        const key = q.id || `Q${i + 1}`;
-                        const count = stats[key]?.count || 0;
-                        const correct = stats[key]?.correct || 0;
-                        const rate = count ? `${Math.round((correct / count) * 100)}%` : "0%";
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                    <td>${i + 1}</td>
-                    <td>${q.question.replace(/<img.*?>/g, '').slice(0, 30)}...</td>
-                    <td>${count}</td>
-                    <td>${rate}</td>`;
-                        table.appendChild(row);
-                    });
-                    const container = document.getElementById("statsTableContainer");
-                    container.innerHTML = "";
-                    container.appendChild(table);
-                })
-                .catch(err => {
-                    alert("載入統計資料錯誤！");
-                    console.error(err);
-                });
-        });
-
     </script>
 </body>
 
 </html>
-
