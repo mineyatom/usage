@@ -36,20 +36,13 @@
             margin-bottom: 20px;
         }
 
+        /* 模式選擇和開始按鈕 */
         .mode-select label {
             display: block;
             margin-bottom: 10px;
         }
 
-        /* 題目圖片 */
-        .question-image {
-            max-width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            margin: 10px 0;
-        }
-
-        /* 選項樣式 */
+        /* 題目選項 */
         #options label {
             display: block;
             background: #f8f9fa;
@@ -58,13 +51,18 @@
             border-radius: 10px;
             border: 1px solid #ccc;
             cursor: pointer;
+            /* 自動換行 */
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
-        /* 按鈕 */
+        /* 按鈕群組 */
         .button-group {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            margin-bottom: 10px;
         }
 
         button,
@@ -83,11 +81,44 @@
         .button-group button:hover {
             background-color: #357ab7;
             transform: translateY(-2px);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         button:active {
             transform: scale(0.97);
+        }
+
+        /* 自訂按鈕顏色 */
+        .btn-green {
+            background-color: #28a745;
+        }
+
+        .btn-green:hover {
+            background-color: #218838;
+        }
+
+        .btn-blue {
+            background-color: #003366;
+        }
+
+        .btn-blue:hover {
+            background-color: #002244;
+        }
+
+        .btn-red {
+            background-color: #dc3545;
+        }
+
+        .btn-red:hover {
+            background-color: #c82333;
+        }
+
+        button.btn-yellow {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        button.btn-yellow:hover {
+            background-color: #e0a800;
         }
 
         /* 進度條 */
@@ -106,74 +137,10 @@
             transition: width .3s;
         }
 
-        /* 詳細解答顏色 */
-        .correct {
-            background: #c8e6c9;
-        }
-
-        .missed {
-            background: #bbdefb;
-        }
-
-        .wrong {
-            background: #ffcdd2;
-        }
-
-        /* 正確率統計顏色 */
-        .green {
-            background: #c8e6c9;
-        }
-
-        .yellow {
-            background: #fff9c4;
-        }
-
-        .orange {
-            background: #ffe0b2;
-        }
-
-        .red {
-            background: #ffcdd2;
-        }
-
-        /* 響應式 */
         @media (max-width:600px) {
             .button-group {
                 flex-direction: column;
             }
-
-            .question-image {
-                max-height: 200px;
-            }
-        }
-
-        /* 功能按鈕 */
-        .btn {
-            margin-top: 10px;
-        }
-
-        .btn-green {
-            background: #28a745;
-        }
-
-        .btn-green:hover {
-            background: #218838;
-        }
-
-        .btn-blue {
-            background: #003366;
-        }
-
-        .btn-blue:hover {
-            background: #002244;
-        }
-
-        .btn-red {
-            background: #dc3545;
-        }
-
-        .btn-red:hover {
-            background: #c82333;
         }
 
     </style>
@@ -196,14 +163,9 @@
                     <option value="quiz3">HTML</option>
                 </select>
             </label>
-            <button id="startTest" class="btn btn-green">開始測驗</button>
-            <button id="showStats" class="btn btn-blue">查看出題統計</button>
-            <select id="statsQuizSelect" style="display:none; margin-top:10px;">
-                <option value="quiz1">軟體開發知識2022版</option>
-                <option value="quiz2">軟體開發知識2025版</option>
-                <option value="quiz3">HTML</option>
-            </select>
-            <button id="clearStats" class="btn btn-red">清除出題紀錄</button>
+            <button id="startTest" class="btn-green">開始測驗</button>
+            <button id="showStats" class="btn-blue">查看出題統計</button>
+            <button id="clearStats" class="btn-red">清除出題紀錄</button>
         </div>
 
         <!-- 測驗頁面 -->
@@ -212,30 +174,42 @@
             <div id="score" style="display:none;"></div>
             <div id="questionNumber"></div>
 
-            <div id="progressBar">
-                <div id="progressBarFill"></div>
-            </div>
-            <div id="question"></div>
-            <div id="options"></div>
+            <!-- 標記題目 功能 -->
+            <label><input type="checkbox" id="markCurrent" /> 標記此題</label>
 
+            <!-- 轉頁與標記按鈕群組 -->
             <div class="button-group">
                 <button id="prev">上一題</button>
                 <button id="submit">下一題</button>
+                <button id="viewMarked" class="btn-yellow">查看標記題目</button>
                 <button id="finish">交卷</button>
             </div>
+
+            <!-- 進度條顯示 -->
+            <div id="progressBar">
+                <div id="progressBarFill"></div>
+            </div>
+
+            <!-- 題目內容區 -->
+            <div id="question"></div>
+            <!-- 選項列表區 -->
+            <div id="options"></div>
         </div>
 
-        <!-- 詳細解答與統計 -->
+        <!-- 詳細解答與統計結果顯示 -->
         <div id="answers" class="card"></div>
         <div id="statsTableContainer" class="card"></div>
     </div>
 
     <script>
+        // 題庫檔案對應
         const quizFiles = {
             quiz1: "questions.json",
             quiz2: "questions2.json",
             quiz3: "TQCHTML.json"
         };
+
+        // 全域狀態
         let quizData = [],
             currentQuestionIndex = 0,
             score = 0;
@@ -243,30 +217,40 @@
             passingScore = 35;
         let userAnswers = [],
             checkedQuestions = Array(totalQuestions).fill(false),
+            userMarks = Array(totalQuestions).fill(false),
             timeLeft = 2400,
             timerInterval, isInstantMode = false;
 
+        // DOM 參考
         const timerEl = document.getElementById('timer'),
             scoreEl = document.getElementById('score'),
             progressBarFill = document.getElementById('progressBarFill');
+        const markCheckbox = document.getElementById('markCurrent'),
+            viewMarkedBtn = document.getElementById('viewMarked');
 
+        /** 開始倒數計時 */
         function startTimer() {
             timerInterval = setInterval(() => {
                 if (timeLeft <= 0) return endQuiz();
-                const m = Math.floor(timeLeft / 60),
-                    s = String(timeLeft % 60).padStart(2, '0');
+                const m = Math.floor(timeLeft / 60);
+                const s = String(timeLeft % 60).padStart(2, '0');
                 timerEl.innerText = `剩餘時間：${m}:${s}`;
                 timeLeft--;
             }, 1000);
         }
 
-        function fetchQuizData(url, cb) {
-            fetch(url).then(res => res.json()).then(cb).catch(() => alert('資料載入錯誤！'));
+        /** 載入題庫 JSON */
+        function fetchQuizData(url, callback) {
+            fetch(url)
+                .then(res => res.json())
+                .then(callback)
+                .catch(() => alert('資料載入錯誤！'));
         }
 
+        /** 記錄出題與答對次數 */
         function recordQuestionStats(id, isCorrect) {
-            const key = 'quiz_stats',
-                stats = JSON.parse(localStorage.getItem(key)) || {};
+            const key = 'quiz_stats';
+            const stats = JSON.parse(localStorage.getItem(key)) || {};
             if (!stats[id]) stats[id] = {
                 count: 0,
                 correct: 0
@@ -276,50 +260,71 @@
             localStorage.setItem(key, JSON.stringify(stats));
         }
 
+        /** 儲存目前答案與標記 */
         function saveCurrentAnswer() {
-            userAnswers[currentQuestionIndex] = Array.from(document.querySelectorAll("input[name='answer']:checked")).map(e => +e.value);
+            userAnswers[currentQuestionIndex] = Array.from(
+                document.querySelectorAll("input[name='answer']:checked")
+            ).map(e => +e.value);
+            userMarks[currentQuestionIndex] = markCheckbox.checked;
         }
 
+        /** 隨機取題並啟動 */
         function loadQuiz() {
             const sel = document.getElementById('quizSelect').value;
             fetchQuizData(quizFiles[sel], data => {
+                // 打亂、權重、選題流程
                 data.sort(() => 0.5 - Math.random());
-                const stats = JSON.parse(localStorage.getItem('quiz_stats')) || {},
-                    pool = [];
+                const stats = JSON.parse(localStorage.getItem('quiz_stats')) || {};
+                const pool = [];
                 data.forEach(q => {
-                    const id = q.id || q.question,
-                        cnt = stats[id]?.count || 0,
-                        weight = Math.ceil(10 / (cnt + 1));
+                    const id = q.id || q.question;
+                    const cnt = stats[id]?.count || 0;
+                    const weight = Math.ceil(10 / (cnt + 1));
                     for (let j = 0; j < weight; j++) pool.push(q);
                 });
-                const selected = [],
-                    used = new Set();
+                const selected = [];
+                const used = new Set();
                 while (selected.length < totalQuestions && pool.length) {
-                    const idx = Math.floor(Math.random() * pool.length),
-                        q = pool.splice(idx, 1)[0],
-                        id = q.id || q.question;
+                    const idx = Math.floor(Math.random() * pool.length);
+                    const q = pool.splice(idx, 1)[0];
+                    const id = q.id || q.question;
                     if (!used.has(id)) {
                         selected.push(q);
                         used.add(id);
                     }
                 }
-                while (selected.length < totalQuestions) selected.push(data[Math.floor(Math.random() * data.length)]);
+                while (selected.length < totalQuestions) {
+                    selected.push(data[Math.floor(Math.random() * data.length)]);
+                }
                 quizData = selected;
                 currentQuestionIndex = 0;
                 loadQuestion();
             });
         }
 
+        /** 顯示單題 */
         function loadQuestion() {
-            const qObj = quizData[currentQuestionIndex],
-                qId = qObj.id || qObj.question;
+            const qObj = quizData[currentQuestionIndex];
+            const qId = qObj.id || qObj.question;
             recordQuestionStats(qId, false);
-            document.getElementById('questionNumber').innerText = `第 ${currentQuestionIndex+1} / ${totalQuestions} 題`;
-            const qEl = document.getElementById('question'),
-                oEl = document.getElementById('options');
+
+            document.getElementById('questionNumber').innerText = `第 ${currentQuestionIndex + 1} / ${totalQuestions} 題`;
+            markCheckbox.checked = userMarks[currentQuestionIndex];
+            document.getElementById('prev').disabled = currentQuestionIndex === 0;
+
+            // 下一題按鈕顯示控制
+            const nextBtn = document.getElementById('submit');
+            if (currentQuestionIndex === totalQuestions - 1) nextBtn.style.display = 'none';
+            else nextBtn.style.display = 'inline-block';
+
+            const qEl = document.getElementById('question');
+            const oEl = document.getElementById('options');
             qEl.innerHTML = '';
             oEl.innerHTML = '';
-            let raw = qObj.question.replace(/<img.*?>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+            let raw = qObj.question.replace(/<img.*?>/g, '')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>');
             const txt = document.createElement('div');
             txt.textContent = raw;
             qEl.appendChild(txt);
@@ -330,25 +335,24 @@
                 img.className = 'question-image';
                 qEl.appendChild(img);
             }
+
             qObj.options.forEach((opt, idx) => {
-                const label = document.createElement('label'),
-                    inp = document.createElement('input');
+                const label = document.createElement('label');
+                const inp = document.createElement('input');
                 inp.type = qObj.answer.length > 1 ? 'checkbox' : 'radio';
                 inp.name = 'answer';
                 inp.value = idx + 1;
+                inp.checked = (userAnswers[currentQuestionIndex] || []).includes(idx + 1);
                 inp.addEventListener('change', updateScore);
                 label.appendChild(inp);
                 label.append(` ${opt}`);
                 oEl.appendChild(label);
             });
-            (userAnswers[currentQuestionIndex] || []).forEach(val => {
-                const inp = document.querySelector(`input[name="answer"][value="${val}"]`);
-                if (inp) inp.checked = true;
-            });
-            document.getElementById('prev').disabled = currentQuestionIndex === 0;
-            progressBarFill.style.width = `${(currentQuestionIndex+1)/totalQuestions*100}%`;
+
+            progressBarFill.style.width = `${(currentQuestionIndex + 1) / totalQuestions * 100}%`;
         }
 
+        /** 更新分數（即時模式） */
         function updateScore() {
             const sel = Array.from(document.querySelectorAll("input[name='answer']:checked")).map(e => +e.value);
             userAnswers[currentQuestionIndex] = sel;
@@ -363,13 +367,13 @@
                     score -= 2;
                     checkedQuestions[currentQuestionIndex] = false;
                 }
-                scoreEl.innerText = `你的得分：${score} / ${totalQuestions*2}`;
+                scoreEl.innerText = `你的得分：${score} / ${totalQuestions * 2}`;
                 scoreEl.style.display = 'block';
             }
-            const qIdStat = quizData[currentQuestionIndex].id || quizData[currentQuestionIndex].question;
-            recordQuestionStats(qIdStat, isCor);
+            recordQuestionStats(quizData[currentQuestionIndex].id || quizData[currentQuestionIndex].question, isCor);
         }
 
+        /** 結束測驗並顯示結果 */
         function endQuiz() {
             clearInterval(timerInterval);
             if (!isInstantMode) {
@@ -382,10 +386,13 @@
                 });
             }
             const passed = score >= passingScore * 2;
-            scoreEl.innerHTML = `<div style="font-size:20px; margin-bottom:10px;">你的得分：${score} / ${totalQuestions*2}</div><div style="font-size:24px; color:${passed?'green':'red'};">${passed?'🎉 恭喜你通過測驗！':'😢 很可惜，未達到通過分數。'}</div>`;
+            scoreEl.innerHTML = `
+                <div style="font-size:20px; margin-bottom:10px;">你的得分：${score} / ${totalQuestions * 2}</div>
+                <div style="font-size:24px; color:${passed ? 'green' : 'red'};">${passed ? '🎉 恭喜通過！' : '😢 未達標'}</div>
+            `;
             const btn = document.createElement('button');
             btn.textContent = '重新測驗';
-            btn.className = 'btn btn-blue';
+            btn.className = 'btn-blue';
             btn.onclick = () => location.reload();
             scoreEl.appendChild(btn);
             scoreEl.style.display = 'block';
@@ -393,35 +400,12 @@
                 top: 0,
                 behavior: 'smooth'
             });
-            const ansEl = document.getElementById('answers');
-            ansEl.innerHTML = '<h3>詳細解答</h3>';
-            quizData.forEach((qObj, idx) => {
-                const div = document.createElement('div');
-                div.innerHTML = `<strong>第 ${idx+1} 題：</strong>`;
-                const tdiv = document.createElement('div');
-                tdiv.textContent = qObj.question.replace(/<img.*?>/g, '');
-                div.appendChild(tdiv);
-                qObj.options.forEach((opt, optIdx) => {
-                    const num = optIdx + 1;
-                    const isSel = (userAnswers[idx] || []).includes(num);
-                    const isCorOpt = qObj.answer.includes(num);
-                    const lab = document.createElement('div');
-                    lab.textContent = `【${num}】${opt}`;
-                    lab.className = isCorOpt ? (isSel ? 'correct' : 'missed') : (isSel ? 'wrong' : '');
-                    div.appendChild(lab);
-                });
-                const uaStr = (userAnswers[idx] || []).join(',') || '未作答',
-                    caStr = qObj.answer.join(',');
-                const exp = document.createElement('div');
-                exp.innerHTML = `<strong>你的答案：</strong>${uaStr} ｜ <strong>正確答案：</strong>${caStr}`;
-                exp.style.marginTop = '10px';
-                div.appendChild(exp);
-                ansEl.appendChild(div);
-            });
         }
+
+        // 事件綁定
         document.getElementById('startTest').addEventListener('click', () => {
             const modeSel = document.querySelector("input[name='mode']:checked");
-            if (!modeSel) return alert('請選擇測驗模式！');
+            if (!modeSel) return alert('請選擇測驗模式');
             isInstantMode = document.getElementById('instantMode').checked;
             document.getElementById('startPage').style.display = 'none';
             document.getElementById('questionPage').style.display = 'block';
@@ -429,12 +413,14 @@
             loadQuiz();
             startTimer();
         });
+
         document.getElementById('submit').addEventListener('click', () => {
             saveCurrentAnswer();
             currentQuestionIndex++;
             if (currentQuestionIndex >= totalQuestions) endQuiz();
             else loadQuestion();
         });
+
         document.getElementById('prev').addEventListener('click', () => {
             saveCurrentAnswer();
             if (currentQuestionIndex > 0) {
@@ -442,53 +428,31 @@
                 loadQuestion();
             }
         });
-        document.getElementById('finish').addEventListener('click', endQuiz);
+
+        document.getElementById('viewMarked').addEventListener('click', () => {
+            saveCurrentAnswer();
+            const marked = userMarks.reduce((arr, v, i) => {
+                if (v) arr.push(i);
+                return arr;
+            }, []);
+            if (marked.length === 0) {
+                alert('目前沒有標記的題目');
+                return;
+            }
+            const pos = marked.indexOf(currentQuestionIndex);
+            const next = pos === -1 ? 0 : (pos + 1) % marked.length;
+            currentQuestionIndex = marked[next];
+            loadQuestion();
+        });
+
+        document.getElementById('finish').addEventListener('click', () => {
+            if (confirm('確定要交卷了嗎？')) endQuiz();
+        });
+
         document.getElementById('clearStats').addEventListener('click', () => {
             localStorage.removeItem('quiz_stats');
-            alert('已清除統計！');
+            alert('已清除出題紀錄');
             location.reload();
-        });
-        document.getElementById('showStats').addEventListener('click', () => {
-            const sel = document.getElementById('statsQuizSelect');
-            sel.style.display = 'inline-block';
-            sel.value = document.getElementById('quizSelect').value;
-            sel.dispatchEvent(new Event('change'));
-            sel.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        });
-        document.getElementById('statsQuizSelect').addEventListener('change', function() {
-            fetchQuizData(quizFiles[this.value], data => {
-                const stats = JSON.parse(localStorage.getItem('quiz_stats')) || {};
-                const table = document.createElement('table');
-                table.border = '1';
-                table.style.width = '100%';
-                table.innerHTML = '<tr><th>題號</th><th>題目</th><th>次數</th><th>正確率</th></tr>';
-                data.forEach((qObj, idx) => {
-                    const key = qObj.id || qObj.question;
-                    const cnt = stats[key]?.count || 0;
-                    const cor = stats[key]?.correct || 0;
-                    const rate = cnt ? Math.round(cor / cnt * 100) : 0;
-                    const row = document.createElement('tr');
-                    let cls = '';
-                    if (rate >= 80) cls = 'green';
-                    else if (rate >= 60) cls = 'yellow';
-                    else if (rate >= 30) cls = 'orange';
-                    else cls = 'red';
-                    row.innerHTML = `<td>${idx+1}</td><td>${qObj.question.replace(/<img.*?>/g,'').slice(0,30)}...</td><td>${cnt}</td><td class='${cls}'>${rate}%</td>`;
-                    table.appendChild(row);
-                });
-                const quizKeys = data.map(qObj => qObj.id || qObj.question);
-                const appeared = quizKeys.filter(k => (JSON.parse(localStorage.getItem('quiz_stats') || '{}')[k]?.count || 0) > 0).length;
-                const container = document.getElementById('statsTableContainer');
-                const summary = document.createElement('div');
-                summary.style.marginBottom = '10px';
-                summary.innerHTML = `<strong>已出題目數：</strong>${appeared} / ${quizKeys.length}`;
-                container.innerHTML = '';
-                container.appendChild(summary);
-                container.appendChild(table);
-            });
         });
 
     </script>
