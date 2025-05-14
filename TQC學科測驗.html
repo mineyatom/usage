@@ -1,166 +1,497 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TQC 測驗系統</title>
-  <style>
-    /* 色彩變數 */
-    :root {
-      --primary: #4A90E2;
-      --success: #2ECC71;
-      --info:    #3498DB;
-      --warning: #F1C40F;
-      --danger:  #E74C3C;
-      --light:   #F0F2F5;
-      --dark:    #2C3E50;
-      --card-bg: #FFFFFF;
-      --option-bg: #F8F9FA;
-      --option-border: #CCC;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 0; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
-    .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
-    h1, h2 { text-align: center; color: var(--primary); margin-bottom: 20px; }
-    .card { background: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-bottom: 30px; }
-    .form-group, .button-group { margin-bottom: 15px; }
-    .button-group { display: flex; gap: 10px; flex-wrap: wrap; }
-    button { padding: 10px 18px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s, transform 0.1s; color: #fff; }
-    button:hover { transform: translateY(-2px); }
-    button:active { transform: scale(0.97); }
-    .btn-primary { background: var(--primary); }
-    .btn-success { background: var(--success); }
-    .btn-info { background: var(--info); }
-    .btn-warning { background: var(--warning); color: #000; }
-    .btn-danger { background: var(--danger); }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TQC 測驗系統</title>
+    <style>
+        /* 全局樣式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #2c3e50;
+            overflow-y: auto;
+        }
 
-    /* 進度條 */
-    #progressBar { height: 14px; background: #e0e0e0; border-radius: 7px; overflow: hidden; margin: 20px 0; }
-    #progressBarFill { height: 100%; width: 0; background: var(--success); transition: width 0.3s; }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
 
-    /* 專業選項樣式 */
-    #options label { display: grid; grid-template-columns: 24px 1fr; align-items: center; padding: 12px 16px; margin-bottom: 12px; border-radius: 8px; border: 1px solid var(--option-border); background: var(--option-bg); transition: background 0.2s, border-color 0.2s; }
-    #options label:hover { background: rgba(74, 144, 226, 0.1); border-color: var(--primary); }
-    #options input { margin: 0; width: 20px; height: 20px; }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+        }
 
-    /* 表單、表格 */
-    select, input[type=text], input[type=number] { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { padding: 10px; text-align: center; border-bottom: 1px solid #ddd; }
-    th { background: var(--primary); color: #fff; }
-    tr:nth-child(even) { background: #f9f9f9; }
-  </style>
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .mode-select label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* 題目圖片 */
+        .question-image {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 10px 0;
+        }
+
+        /* 選項樣式 */
+        #options label {
+            display: block;
+            background: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        /* 按鈕 */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button,
+        .button-group button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4a90e2;
+            color: #fff;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        button:hover,
+        .button-group button:hover {
+            background-color: #357ab7;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* 進度條 */
+        #progressBar {
+            height: 15px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        #progressBarFill {
+            height: 100%;
+            width: 0;
+            background: #28a745;
+            transition: width .3s;
+        }
+
+        /* 詳細解答顏色 */
+        .correct {
+            background: #c8e6c9;
+        }
+
+        .missed {
+            background: #bbdefb;
+        }
+
+        .wrong {
+            background: #ffcdd2;
+        }
+
+        /* 正確率統計顏色 */
+        .green {
+            background: #c8e6c9;
+        }
+
+        .yellow {
+            background: #fff9c4;
+        }
+
+        .orange {
+            background: #ffe0b2;
+        }
+
+        .red {
+            background: #ffcdd2;
+        }
+
+        /* 響應式 */
+        @media (max-width:600px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            .question-image {
+                max-height: 200px;
+            }
+        }
+
+        /* 功能按鈕 */
+        .btn {
+            margin-top: 10px;
+        }
+
+        .btn-green {
+            background: #28a745;
+        }
+
+        .btn-green:hover {
+            background: #218838;
+        }
+
+        .btn-blue {
+            background: #003366;
+        }
+
+        .btn-blue:hover {
+            background: #002244;
+        }
+
+        .btn-red {
+            background: #dc3545;
+        }
+
+        .btn-red:hover {
+            background: #c82333;
+        }
+
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>TQC 學科測驗</h1>
-    <!-- 開始卡片 -->
-    <div id="startPage" class="card">
-      <h2>選擇模式與題庫</h2>
-      <div class="form-group">
-        <label>模式：</label>
-        <div class="button-group">
-          <button id="instantModeBtn" class="btn-info">練習模式</button>
-          <button id="examModeBtn" class="btn-primary">考試模式</button>
+    <div class="container">
+        <h1>TQC 學科測驗</h1>
+
+        <!-- 開始頁面 -->
+        <div id="startPage" class="card">
+            <div class="mode-select">
+                <label><input type="radio" name="mode" id="instantMode" value="instant" /> 練習模式（即時對答案）</label>
+                <label><input type="radio" name="mode" id="examMode" value="exam" /> 考試模式（不即時對答案）</label>
+            </div>
+            <label>選擇題庫:
+                <select id="quizSelect">
+                    <option value="quiz1">軟體開發知識2022版</option>
+                    <option value="quiz2">軟體開發知識2025版</option>
+                    <option value="quiz3">HTML</option>
+                </select>
+            </label>
+            <button id="startTest" class="btn btn-green">開始測驗</button>
+            <button id="showStats" class="btn btn-blue">查看出題統計</button>
+            <select id="statsQuizSelect" style="display:none; margin-top:10px;">
+                <option value="quiz1">軟體開發知識2022版</option>
+                <option value="quiz2">軟體開發知識2025版</option>
+                <option value="quiz3">HTML</option>
+            </select>
+            <button id="clearStats" class="btn btn-red">清除出題紀錄</button>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="quizSelect">題庫：</label>
-        <select id="quizSelect">
-          <option value="quiz1">軟體開發知識 2022 版</option>
-          <option value="quiz2">軟體開發知識 2025 版</option>
-          <option value="quiz3">HTML 基礎</option>
-        </select>
-      </div>
-      <div class="button-group">
-        <button id="startTest" class="btn-success">開始測驗</button>
-        <button id="viewScores" class="btn-info">查看成績</button>
-        <button id="clearAllScores" class="btn-danger">清除成績</button>
-      </div>
+
+        <!-- 測驗頁面 -->
+        <div id="questionPage" class="card" style="display:none;">
+            <div id="timer">剩餘時間：40:00</div>
+            <div id="score" style="display:none;"></div>
+            <div id="questionNumber"></div>
+
+            <div id="progressBar">
+                <div id="progressBarFill"></div>
+            </div>
+            <div id="question"></div>
+            <div id="options"></div>
+
+            <div class="button-group">
+                <button id="prev">上一題</button>
+                <button id="submit">下一題</button>
+                <button id="finish">交卷</button>
+            </div>
+        </div>
+
+        <!-- 詳細解答與統計 -->
+        <div id="answers" class="card"></div>
+        <div id="statsTableContainer" class="card"></div>
     </div>
-    <!-- 測驗卡片 -->
-    <div id="questionPage" class="card" style="display:none;">
-      <div id="timer">剩餘時間：40:00</div>
-      <div id="questionNumber"></div>
-      <div id="markContainer" class="form-group">
-        <label><input type="checkbox" id="markQuestion" /> 標記此題</label>
-      </div>
-      <div id="question"></div>
-      <div id="options"></div>
-      <div id="progressBar"><div id="progressBarFill"></div></div>
-      <div class="button-group">
-        <button id="prev" class="btn-warning">上一題</button>
-        <button id="next" class="btn-warning">下一題</button>
-        <button id="viewMarked" class="btn-info">查看標記</button>
-        <button id="finish" class="btn-primary">交卷</button>
-      </div>
-    </div>
-    <!-- 查看成績卡片 -->
-    <div id="view-score-card" class="card" style="display:none;">
-      <h2>成績記錄</h2>
-      <div class="form-group">
-        <label for="subjectSelectModal">選擇題庫：</label>
-        <select id="subjectSelectModal"></select>
-      </div>
-      <table id="storedScoreTable">
-        <thead><tr><th>序號</th><th>分數</th><th>時間</th></tr></thead>
-        <tbody></tbody>
-      </table>
-      <div class="button-group">
-        <button id="closeViewScores" class="btn-warning">關閉</button>
-        <button id="clearStoredScores" class="btn-danger">清除紀錄</button>
-      </div>
-    </div>
-  </div>
-  <script>
-    // 題庫映射
-    const quizFiles={quiz1:'questions.json',quiz2:'questions2.json',quiz3:'TQCHTML.json'};
-    let quizData=[],currentQuestionIndex=0,score=0;
-    const totalQuestions=50;
-    let checkedQuestions=Array(totalQuestions).fill(false),userMarks=Array(totalQuestions).fill(false);
-    let timeLeft=2400,timerInterval,isInstantMode=false;
-    // DOM
-    const timerEl=document.getElementById('timer'),qNumEl=document.getElementById('questionNumber'),
-          qEl=document.getElementById('question'),oEl=document.getElementById('options'),
-          progressFill=document.getElementById('progressBarFill'),markCheckbox=document.getElementById('markQuestion');
-    // 模式
-    document.getElementById('instantModeBtn').addEventListener('click',()=>{isInstantMode=true;toggleModeButtons();});
-    document.getElementById('examModeBtn').addEventListener('click',()=>{isInstantMode=false;toggleModeButtons();});
-    function toggleModeButtons(){
-      document.getElementById('instantModeBtn').className=isInstantMode?'btn-success':'btn-info';
-      document.getElementById('examModeBtn').className=isInstantMode?'btn-info':'btn-success';
-    }
-    // 計時
-    function startTimer(){timerInterval=setInterval(()=>{if(timeLeft<=0)return endQuiz();const m=Math.floor(timeLeft/60),s=String(timeLeft%60).padStart(2,'0');timerEl.textContent=`剩餘時間：${m}:${s}`;timeLeft--;},1000);}    
-    // 載題
-    function fetchQuizData(file, callback) {
-      fetch(file)
-        .then(response => response.json())
-        .then(callback)
-        .catch(error => {
-          console.error('載入錯誤', error);
-          alert('資料載入錯誤！請稍後再試。');
+
+    <script>
+        const quizFiles = {
+            quiz1: "questions.json",
+            quiz2: "questions2.json",
+            quiz3: "TQCHTML.json"
+        };
+        let quizData = [],
+            currentQuestionIndex = 0,
+            score = 0;
+        const totalQuestions = 50,
+            passingScore = 35;
+        let userAnswers = [],
+            checkedQuestions = Array(totalQuestions).fill(false),
+            timeLeft = 2400,
+            timerInterval, isInstantMode = false;
+
+        const timerEl = document.getElementById('timer'),
+            scoreEl = document.getElementById('score'),
+            progressBarFill = document.getElementById('progressBarFill');
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) return endQuiz();
+                const m = Math.floor(timeLeft / 60),
+                    s = String(timeLeft % 60).padStart(2, '0');
+                timerEl.innerText = `剩餘時間：${m}:${s}`;
+                timeLeft--;
+            }, 1000);
+        }
+
+        function fetchQuizData(url, cb) {
+            fetch(url).then(res => res.json()).then(cb).catch(() => alert('資料載入錯誤！'));
+        }
+
+        function recordQuestionStats(id, isCorrect) {
+            const key = 'quiz_stats',
+                stats = JSON.parse(localStorage.getItem(key)) || {};
+            if (!stats[id]) stats[id] = {
+                count: 0,
+                correct: 0
+            };
+            stats[id].count++;
+            if (isCorrect) stats[id].correct++;
+            localStorage.setItem(key, JSON.stringify(stats));
+        }
+
+        function saveCurrentAnswer() {
+            userAnswers[currentQuestionIndex] = Array.from(document.querySelectorAll("input[name='answer']:checked")).map(e => +e.value);
+        }
+
+        function loadQuiz() {
+            const sel = document.getElementById('quizSelect').value;
+            fetchQuizData(quizFiles[sel], data => {
+                data.sort(() => 0.5 - Math.random());
+                const stats = JSON.parse(localStorage.getItem('quiz_stats')) || {},
+                    pool = [];
+                data.forEach(q => {
+                    const id = q.id || q.question,
+                        cnt = stats[id]?.count || 0,
+                        weight = Math.ceil(10 / (cnt + 1));
+                    for (let j = 0; j < weight; j++) pool.push(q);
+                });
+                const selected = [],
+                    used = new Set();
+                while (selected.length < totalQuestions && pool.length) {
+                    const idx = Math.floor(Math.random() * pool.length),
+                        q = pool.splice(idx, 1)[0],
+                        id = q.id || q.question;
+                    if (!used.has(id)) {
+                        selected.push(q);
+                        used.add(id);
+                    }
+                }
+                while (selected.length < totalQuestions) selected.push(data[Math.floor(Math.random() * data.length)]);
+                quizData = selected;
+                currentQuestionIndex = 0;
+                loadQuestion();
+            });
+        }
+
+        function loadQuestion() {
+            const qObj = quizData[currentQuestionIndex],
+                qId = qObj.id || qObj.question;
+            recordQuestionStats(qId, false);
+            document.getElementById('questionNumber').innerText = `第 ${currentQuestionIndex+1} / ${totalQuestions} 題`;
+            const qEl = document.getElementById('question'),
+                oEl = document.getElementById('options');
+            qEl.innerHTML = '';
+            oEl.innerHTML = '';
+            let raw = qObj.question.replace(/<img.*?>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+            const txt = document.createElement('div');
+            txt.textContent = raw;
+            qEl.appendChild(txt);
+            const imgMatch = qObj.question.match(/<img src=['"](.*?)['"]/);
+            if (imgMatch) {
+                const img = document.createElement('img');
+                img.src = imgMatch[1];
+                img.className = 'question-image';
+                qEl.appendChild(img);
+            }
+            qObj.options.forEach((opt, idx) => {
+                const label = document.createElement('label'),
+                    inp = document.createElement('input');
+                inp.type = qObj.answer.length > 1 ? 'checkbox' : 'radio';
+                inp.name = 'answer';
+                inp.value = idx + 1;
+                inp.addEventListener('change', updateScore);
+                label.appendChild(inp);
+                label.append(` ${opt}`);
+                oEl.appendChild(label);
+            });
+            (userAnswers[currentQuestionIndex] || []).forEach(val => {
+                const inp = document.querySelector(`input[name="answer"][value="${val}"]`);
+                if (inp) inp.checked = true;
+            });
+            document.getElementById('prev').disabled = currentQuestionIndex === 0;
+            progressBarFill.style.width = `${(currentQuestionIndex+1)/totalQuestions*100}%`;
+        }
+
+        function updateScore() {
+            const sel = Array.from(document.querySelectorAll("input[name='answer']:checked")).map(e => +e.value);
+            userAnswers[currentQuestionIndex] = sel;
+            const correctAns = quizData[currentQuestionIndex].answer;
+            const isCor = JSON.stringify(sel.sort()) === JSON.stringify(correctAns.sort());
+            if (isInstantMode) {
+                if (isCor && !checkedQuestions[currentQuestionIndex]) {
+                    score += 2;
+                    checkedQuestions[currentQuestionIndex] = true;
+                }
+                if (!isCor && checkedQuestions[currentQuestionIndex]) {
+                    score -= 2;
+                    checkedQuestions[currentQuestionIndex] = false;
+                }
+                scoreEl.innerText = `你的得分：${score} / ${totalQuestions*2}`;
+                scoreEl.style.display = 'block';
+            }
+            const qIdStat = quizData[currentQuestionIndex].id || quizData[currentQuestionIndex].question;
+            recordQuestionStats(qIdStat, isCor);
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            if (!isInstantMode) {
+                score = 0;
+                quizData.forEach((qObj, idx) => {
+                    const ua = userAnswers[idx] || [];
+                    const isCor = JSON.stringify(ua.sort()) === JSON.stringify(qObj.answer.sort());
+                    if (isCor) score += 2;
+                    recordQuestionStats(qObj.id || qObj.question, isCor);
+                });
+            }
+            const passed = score >= passingScore * 2;
+            scoreEl.innerHTML = `<div style="font-size:20px; margin-bottom:10px;">你的得分：${score} / ${totalQuestions*2}</div><div style="font-size:24px; color:${passed?'green':'red'};">${passed?'🎉 恭喜你通過測驗！':'😢 很可惜，未達到通過分數。'}</div>`;
+            const btn = document.createElement('button');
+            btn.textContent = '重新測驗';
+            btn.className = 'btn btn-blue';
+            btn.onclick = () => location.reload();
+            scoreEl.appendChild(btn);
+            scoreEl.style.display = 'block';
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            const ansEl = document.getElementById('answers');
+            ansEl.innerHTML = '<h3>詳細解答</h3>';
+            quizData.forEach((qObj, idx) => {
+                const div = document.createElement('div');
+                div.innerHTML = `<strong>第 ${idx+1} 題：</strong>`;
+                const tdiv = document.createElement('div');
+                tdiv.textContent = qObj.question.replace(/<img.*?>/g, '');
+                div.appendChild(tdiv);
+                qObj.options.forEach((opt, optIdx) => {
+                    const num = optIdx + 1;
+                    const isSel = (userAnswers[idx] || []).includes(num);
+                    const isCorOpt = qObj.answer.includes(num);
+                    const lab = document.createElement('div');
+                    lab.textContent = `【${num}】${opt}`;
+                    lab.className = isCorOpt ? (isSel ? 'correct' : 'missed') : (isSel ? 'wrong' : '');
+                    div.appendChild(lab);
+                });
+                const uaStr = (userAnswers[idx] || []).join(',') || '未作答',
+                    caStr = qObj.answer.join(',');
+                const exp = document.createElement('div');
+                exp.innerHTML = `<strong>你的答案：</strong>${uaStr} ｜ <strong>正確答案：</strong>${caStr}`;
+                exp.style.marginTop = '10px';
+                div.appendChild(exp);
+                ansEl.appendChild(div);
+            });
+        }
+        document.getElementById('startTest').addEventListener('click', () => {
+            const modeSel = document.querySelector("input[name='mode']:checked");
+            if (!modeSel) return alert('請選擇測驗模式！');
+            isInstantMode = document.getElementById('instantMode').checked;
+            document.getElementById('startPage').style.display = 'none';
+            document.getElementById('questionPage').style.display = 'block';
+            document.body.style.backgroundColor = isInstantMode ? '#ffe6ec' : '#e6ecf2';
+            loadQuiz();
+            startTimer();
         });
-    }
-    document.getElementById('startTest').addEventListener('click',()=>{document.getElementById('startPage').style.display='none';document.getElementById('questionPage').style.display='block';document.body.style.backgroundColor=isInstantMode?'#ffe6ec':'#e6ecf2';fetchQuizData(quizFiles[document.getElementById('quizSelect').value],data=>{data.sort(()=>0.5-Math.random());quizData=data.slice(0,totalQuestions);loadQuestion();startTimer();});});
-    function loadQuestion(){const q=quizData[currentQuestionIndex];qNumEl.textContent=`第 ${currentQuestionIndex+1} / ${totalQuestions} 題`;markCheckbox.checked=userMarks[currentQuestionIndex];qEl.textContent=q.question.replace(/<[^>]+>/g,'');oEl.innerHTML='';q.options.forEach((opt,i)=>{const lbl=document.createElement('label');const inp=document.createElement('input');inp.type=q.answer.length>1?'checkbox':'radio';inp.name='ans';inp.value=i+1;inp.addEventListener('change',updateScore);lbl.appendChild(inp);lbl.append(` ${opt}`);oEl.appendChild(lbl);});document.getElementById('next').style.display=currentQuestionIndex===totalQuestions-1?'none':'inline-block';progressFill.style.width=`${(currentQuestionIndex+1)/totalQuestions*100}%`;}    
-    markCheckbox.addEventListener('change',()=>{userMarks[currentQuestionIndex]=markCheckbox.checked;});
-    document.getElementById('viewMarked').addEventListener('click',()=>{const marked=userMarks.reduce((arr,v,i)=>v?arr.concat(i):arr,[]);if(!marked.length)return alert('無標記題目');const idx=marked.indexOf(currentQuestionIndex);currentQuestionIndex=marked[(idx+1)%marked.length];loadQuestion();});
-    function updateScore(){if(!isInstantMode) return;const sel=Array.from(document.querySelectorAll('input[name=ans]:checked')).map(e=>+e.value),cor=quizData[currentQuestionIndex].answer;const right=JSON.stringify(sel.sort())===JSON.stringify(cor.sort());if(right&&!checkedQuestions[currentQuestionIndex]){score+=2;checkedQuestions[currentQuestionIndex]=true;}}
-    document.getElementById('prev').addEventListener('click',()=>{if(currentQuestionIndex>0){currentQuestionIndex--;loadQuestion();}});
-    document.getElementById('next').addEventListener('click',()=>{currentQuestionIndex++;if(currentQuestionIndex<totalQuestions)loadQuestion();});
-    document.getElementById('finish').addEventListener('click',()=>{if(confirm('確定要交卷嗎？'))endQuiz();});
-    // 結束及記錄
-    const RECORD_KEY='score_records';function loadRecords(){return JSON.parse(localStorage.getItem(RECORD_KEY)||'{}');}function saveRecords(r){localStorage.setItem(RECORD_KEY,JSON.stringify(r));}
-    function endQuiz(){clearInterval(timerInterval);if(!isInstantMode){score=0;quizData.forEach(q=>{const sel=Array.from(document.querySelectorAll('input[name=ans]:checked')).map(e=>+e.value);if(JSON.stringify(sel.sort())===JSON.stringify(q.answer.sort()))score+=2;});qEl.textContent=`測驗結束！總分：${score}`;const subj=document.getElementById('quizSelect').selectedOptions[0].text;const recs=loadRecords();if(!recs[subj])recs[subj]=[];recs[subj].push({score:score,time:new Date().toLocaleString()});if(recs[subj].length>10)recs[subj].shift();saveRecords(recs);}else{qEl.textContent='練習模式結束，不儲存成績';}}    
-    // 查看清除成績
-    document.getElementById('viewScores').addEventListener('click',()=>{const recs=loadRecords(),sel=document.getElementById('subjectSelectModal');sel.innerHTML='';Object.keys(recs).forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});if(!sel.options.length)return alert('無紀錄');document.getElementById('view-score-card').style.display='block';renderStoredScores();});
-    document.getElementById('clearAllScores').addEventListener('click',()=>{if(confirm('清除所有紀錄?')){localStorage.removeItem(RECORD_KEY);document.getElementById('view-score-card').style.display='none';}});
-    document.getElementById('clearStoredScores').addEventListener('click',()=>{const subj=document.getElementById('subjectSelectModal').value;if(!confirm(`清除「${subj}」所有紀錄？`))return;const recs=loadRecords();delete recs[subj];saveRecords(recs);document.getElementById('view-score-card').style.display='none';});
-    document.getElementById('subjectSelectModal').addEventListener('change',renderStoredScores);
-    function renderStoredScores(){const subj=document.getElementById('subjectSelectModal').value;const recs=loadRecords()[subj]||[],tb=document.querySelector('#storedScoreTable tbody');tb.innerHTML='';recs.slice().reverse().forEach((r,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${i+1}</td><td>${r.score}</td><td>${r.time}</td>`;tb.appendChild(tr);});}
-    // init
-    toggleModeButtons();
-  </script>
+        document.getElementById('submit').addEventListener('click', () => {
+            saveCurrentAnswer();
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= totalQuestions) endQuiz();
+            else loadQuestion();
+        });
+        document.getElementById('prev').addEventListener('click', () => {
+            saveCurrentAnswer();
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        });
+        document.getElementById('finish').addEventListener('click', endQuiz);
+        document.getElementById('clearStats').addEventListener('click', () => {
+            localStorage.removeItem('quiz_stats');
+            alert('已清除統計！');
+            location.reload();
+        });
+        document.getElementById('showStats').addEventListener('click', () => {
+            const sel = document.getElementById('statsQuizSelect');
+            sel.style.display = 'inline-block';
+            sel.value = document.getElementById('quizSelect').value;
+            sel.dispatchEvent(new Event('change'));
+            sel.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+        document.getElementById('statsQuizSelect').addEventListener('change', function() {
+            fetchQuizData(quizFiles[this.value], data => {
+                const stats = JSON.parse(localStorage.getItem('quiz_stats')) || {};
+                const table = document.createElement('table');
+                table.border = '1';
+                table.style.width = '100%';
+                table.innerHTML = '<tr><th>題號</th><th>題目</th><th>次數</th><th>正確率</th></tr>';
+                data.forEach((qObj, idx) => {
+                    const key = qObj.id || qObj.question;
+                    const cnt = stats[key]?.count || 0;
+                    const cor = stats[key]?.correct || 0;
+                    const rate = cnt ? Math.round(cor / cnt * 100) : 0;
+                    const row = document.createElement('tr');
+                    let cls = '';
+                    if (rate >= 80) cls = 'green';
+                    else if (rate >= 60) cls = 'yellow';
+                    else if (rate >= 30) cls = 'orange';
+                    else cls = 'red';
+                    row.innerHTML = `<td>${idx+1}</td><td>${qObj.question.replace(/<img.*?>/g,'').slice(0,30)}...</td><td>${cnt}</td><td class='${cls}'>${rate}%</td>`;
+                    table.appendChild(row);
+                });
+                const quizKeys = data.map(qObj => qObj.id || qObj.question);
+                const appeared = quizKeys.filter(k => (JSON.parse(localStorage.getItem('quiz_stats') || '{}')[k]?.count || 0) > 0).length;
+                const container = document.getElementById('statsTableContainer');
+                const summary = document.createElement('div');
+                summary.style.marginBottom = '10px';
+                summary.innerHTML = `<strong>已出題目數：</strong>${appeared} / ${quizKeys.length}`;
+                container.innerHTML = '';
+                container.appendChild(summary);
+                container.appendChild(table);
+            });
+        });
+
+    </script>
 </body>
+
 </html>
