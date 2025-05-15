@@ -49,16 +49,27 @@ DOCTYPE html>
             margin: 10px 0;
         }
 
-        /* 選項樣式 */
+        
+        /* 選項樣式 -*/
         #options label {
-            display: block;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
             background: #f8f9fa;
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 10px;
             border: 1px solid #ccc;
             cursor: pointer;
+
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
+            width: 100%;
         }
+
 
         /* 按鈕 */
         .button-group {
